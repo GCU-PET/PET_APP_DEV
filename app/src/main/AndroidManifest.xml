@@ -12,10 +12,13 @@
         android:theme="@style/Theme.PET"
         tools:targetApi="31">
         <activity
-            android:name=".board_detail"
+            android:name=".BoardList"
             android:exported="false" />
         <activity
-            android:name=".board_register"
+            android:name=".BoardDetail"
+            android:exported="false" />
+        <activity
+            android:name=".BoardRegister"
             android:exported="false" />
         <activity
             android:name=".BoardFragment"

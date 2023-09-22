@@ -4,11 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".BoardFragment"
     android:orientation="vertical"
     android:padding="10dp">
 
-<!--    게시판 게시글 제목-->
+    <!--    게시판 게시글 제목-->
     <TextView
         android:id="@+id/textView4"
         android:layout_width="match_parent"
@@ -17,7 +16,7 @@
         android:textSize="25dp"
         android:layout_margin="5dp"/>
 
-<!--    게시판 게시글의 내용 일부-->
+    <!--    게시판 게시글의 내용 일부-->
     <TextView
         android:id="@+id/textView5"
         android:layout_width="match_parent"
