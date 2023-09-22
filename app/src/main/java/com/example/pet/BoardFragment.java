@@ -22,7 +22,5 @@ public class BoardFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         return super.onCreateView(inflater, container, savedInstanceState);
 
-
-
     }
 }
