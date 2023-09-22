@@ -7,12 +7,14 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+<!--    각 페이지를 보여주는 레이아웃-->
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/sliderViewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
+<!--    페이지를 전환할 수 있는 탭-->
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
