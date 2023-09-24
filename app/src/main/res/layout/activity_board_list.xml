@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:background="#aaaaaa"
     android:orientation="vertical"
-    tools:context=".BoardListFragment">
+    tools:context=".BoardListFragment"
+    android:layout_margin="15dp">
 
     <!--    여기에 board list item을 동적으로 추가-->
     <androidx.recyclerview.widget.RecyclerView

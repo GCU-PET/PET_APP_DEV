@@ -47,7 +47,7 @@
         />
 
     <Button
-        android:id="@+id/reg_button"
+        android:id="@+id/registBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="등록하기"/>
