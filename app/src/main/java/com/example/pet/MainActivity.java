@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -12,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ViewPager2 sliderViewPager;
+    private ImageButton imageBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("홈"));
         tabLayout.addTab(tabLayout.newTab().setText("게시판"));
 
-        TabAdapter tabAdapter = new TabAdapter(this,3);
-        sliderViewPager.setAdapter(tabAdapter);
+        ViewPager2Adapter viewPager2Adapter = new ViewPager2Adapter(this);
+        sliderViewPager.setAdapter(viewPager2Adapter);
 
         new TabLayoutMediator(tabLayout, sliderViewPager,
                 (tab, position) -> {
@@ -51,5 +55,6 @@ public class MainActivity extends AppCompatActivity {
 
         // 홈 화면을 초기 화면으로 설정
         sliderViewPager.setCurrentItem(1);
+
     }
 }

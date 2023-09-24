@@ -9,7 +9,7 @@
 
     <!--    게시판 게시글 제목-->
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/titleTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="제목"
@@ -18,7 +18,7 @@
 
     <!--    게시판 게시글의 내용 일부-->
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/contentTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="내용"
