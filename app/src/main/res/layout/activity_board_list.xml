@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#aaaaaa"
     android:orientation="vertical"
     tools:context=".BoardListFragment">
 
-<!--    여기에 board list item을 동적으로 추가-->
+    <!--    여기에 board list item을 동적으로 추가-->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/boardList_recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/writeBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="게시글 추가"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
