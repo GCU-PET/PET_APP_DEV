@@ -1,74 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <!--    유저 정보를 나타내는 레이아웃-->
     <LinearLayout
-        android:id="@+id/userInfo_layout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="10dp">
-
-        <ImageView
-            android:id="@+id/userImage"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            tools:srcCompat="@tools:sample/avatars" />
-
-        <LinearLayout
-            android:id="@+id/userInfo_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/userName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="유저명" />
-
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="함께하는 반려동물은..." />
-
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="강아지 멍멍이 입니다." />
-        </LinearLayout>
-
-        <ImageButton
-            android:id="@+id/userInfo_edit_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@android:drawable/ic_dialog_info" />
-
-    </LinearLayout>
-
-    <!--게시판 레이아웃-->
-    <LinearLayout
-        android:id="@+id/board_layout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
-<!--        이곳에 fragment로 게시판 xml 표시-->
-        <FrameLayout
-            android:id="@+id/board_container"
+        <!--    유저 정보를 나타내는 레이아웃-->
+        <LinearLayout
+            android:id="@+id/userInfo_layout"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3">
-        </FrameLayout>
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_rectangle"
+            android:layout_margin="15dp"
+            android:padding="10dp"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <EditText
+                    android:id="@+id/userName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="User Name"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    android:layout_marginLeft="10dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:fontFamily="@font/hanuman_regular"
+
+                    android:enabled="false"/>
+
+                <ImageButton
+                    android:id="@+id/userInfo_edit_button"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@color/light_yellow"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/icon_edit"
+                    android:layout_marginLeft="10dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/userName"
+                    app:layout_constraintStart_toEndOf="@+id/userName"
+                    app:layout_constraintTop_toTopOf="@+id/userName"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="5dp">
+
+                <LinearLayout
+                    android:id="@+id/userInfo_detail"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingLeft="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Your Pet"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginVertical="10dp"
+                        android:fontFamily="@font/hanuman_bold"/>
+
+                    <TextView
+                        android:id="@+id/pet_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pet_name"
+                        android:layout_margin="5dp"
+                        android:fontFamily="@font/hanuman_regular"/>
+
+                    <TextView
+                        android:id="@+id/pet_age"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pet_age"
+                        android:layout_margin="5dp"
+                        android:fontFamily="@font/hanuman_regular"/>
+
+                    <TextView
+                        android:id="@+id/pet_state"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pet State"
+                        android:layout_margin="5dp"
+                        android:fontFamily="@font/hanuman_regular"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        android:background="@drawable/round_yellow_border">
+
+
+                        <ImageView
+                            android:id="@+id/image_pet"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="5dp"
+
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/icon_add"
+                            android:background="@color/white"
+
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/round_yellow_border"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!--게시판 레이아웃-->
+        <LinearLayout
+            android:id="@+id/board_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/round_rectangle"
+            android:layout_margin="15dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Board"
+                android:textSize="32sp"
+                android:layout_margin="5dp"
+                android:textAlignment="center"
+                android:fontFamily="@font/hanuman_regular"/>
+
+            <!--        이곳에 fragment로 게시판 xml 표시-->
+            <FrameLayout
+                android:id="@+id/board_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:minHeight="300dp">
+
+            </FrameLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>

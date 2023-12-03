@@ -4,24 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:layout_margin="5dp"
+    android:background="@color/white">
 
-    <!--    게시판 게시글 제목-->
-    <TextView
-        android:id="@+id/titleTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="제목"
-        android:textSize="25dp"
-        android:layout_margin="5dp"/>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="4"
+        android:orientation="vertical">
 
-    <!--    게시판 게시글의 내용 일부-->
-    <TextView
-        android:id="@+id/contentTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="내용"
-        android:textSize="15dp"
-        android:layout_margin="5dp"/>
+        <!--    게시판 게시글 제목-->
+        <TextView
+            android:id="@+id/itemTitleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Title"
+            android:textSize="25dp"
+            android:layout_margin="5dp"
+            android:fontFamily="@font/hanuman_bold"/>
+
+        <!--    게시판 게시글의 내용 일부-->
+        <TextView
+            android:id="@+id/itemContentTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Content"
+            android:textSize="15dp"
+            android:layout_margin="5dp"
+            android:fontFamily="@font/hanuman_regular"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+    <ImageView
+        android:id="@+id/itemImageView"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:scaleType="fitCenter"/>
 </LinearLayout>

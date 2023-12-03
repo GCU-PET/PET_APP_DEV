@@ -2,4 +2,31 @@
     <string name="app_name">PET</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="current_state">Current State</string>
+    <string name="state_analysis">Analysis of \nRecent Behavior</string>
+    <string name="abnormal_analysis">Abnormal behavior detection analysis</string>
+
+    <string name="happy_state">I am HAPPY now!</string>
+
+    <string name="user_name">
+        User Name
+    </string>
+
+    <string name="user_id">
+        abcd1234@gmail.com
+    </string>
+
+    <string name="user_password">
+        abcd1234
+    </string>
+
+    <string name="pet_name">
+        Pet Name
+    </string>
+
+    <string name="pet_age">
+        Pet Age
+    </string>
+
 </resources>

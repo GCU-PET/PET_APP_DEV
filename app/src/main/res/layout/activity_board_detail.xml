@@ -6,77 +6,61 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".BoardDetail"
-    android:layout_margin="15dp">
+    android:padding="15dp"
+    android:background="@color/light_yellow">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        android:background="@drawable/round_white_rectangle">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <EditText
+                android:id="@+id/board_title_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Title"
+                android:layout_margin="10dp"
+                android:padding="15dp"
+                android:background="@drawable/round_rectangle"
+                android:fontFamily="@font/hanuman_bold"/>
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:layout_margin="10dp"
+                android:background="@drawable/round_rectangle">
 
-                <TextView
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:text="제목"/>
-
-                <TextView
-                    android:id="@+id/title_tv"
-                    android:padding="16dp"
-                    android:background="#eeeeee"
+                <EditText
+                    android:id="@+id/board_content_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="제목입니다."
-                    />
+                    android:layout_margin="10dp"
+                    android:fontFamily="@font/hanuman_regular"
+                    android:gravity="top"
+                    android:hint="Content"
+                    android:lines="10"
+                    android:padding="15dp" />
+
+                <ImageView
+                    android:id="@+id/board_detail_image"
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:layout_margin="10dp"
+                    android:scaleType="center"
+                    android:layout_gravity="center_vertical"/>
+
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:text="작성일"/>
-
-                <TextView
-                    android:id="@+id/date_tv"
-                    android:padding="16dp"
-                    android:background="#eeeeee"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="제목입니다."
-                    />
-            </LinearLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:text="내용"/>
-
-            <TextView
-                android:id="@+id/content_tv"
-                android:padding="16dp"
-                android:background="#eeeeee"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="내용입니다."
-                />
-
         </LinearLayout>
+
     </ScrollView>
 
 </LinearLayout>

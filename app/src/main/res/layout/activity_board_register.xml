@@ -6,50 +6,107 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".BoardRegister"
-    android:layout_margin="15dp">
+    android:padding="15dp"
+    android:background="@color/light_yellow">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:text="제목"/>
-
-        <EditText
-            android:id="@+id/title_et"
-            android:padding="16dp"
-            android:background="#eeeeee"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="제목을 입력하세요."
-            />
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:text="내용"/>
-
-    <EditText
-        android:id="@+id/content_et"
-        android:padding="16dp"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="#eeeeee"
-        android:hint="내용을 입력하세요."
-        />
+        android:fillViewport="true"
+        android:background="@drawable/round_white_rectangle">
 
-    <Button
-        android:id="@+id/registBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="등록하기"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/board_title_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Title"
+                android:layout_margin="10dp"
+                android:padding="15dp"
+                android:background="@drawable/round_rectangle"
+                android:fontFamily="@font/hanuman_bold"/>
+
+
+            <EditText
+                android:id="@+id/board_content_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/round_rectangle"
+                android:fontFamily="@font/hanuman_regular"
+                android:gravity="top"
+                android:hint="Content"
+                android:lines="12"
+                android:padding="15dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/round_rectangle"
+                android:padding="10dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="20dp">
+
+                    <ImageButton
+                        android:id="@+id/board_add_image_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+
+                        android:background="@color/white"
+                        android:onClick="onImageEditButtonClick"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/icon_add"
+
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/round_yellow_border"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <ImageView
+                    android:id="@+id/board_added_image"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="center" />
+
+            </LinearLayout>
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/registBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_blue_border_rectangle"
+                android:textColor="@color/blue"
+                android:layout_margin="5dp"
+                android:text="POST"
+                android:fontFamily="@font/hanuman_bold"/>
+
+        </LinearLayout>
+
+
+    </ScrollView>
 
 </LinearLayout>

@@ -12,16 +12,13 @@
         android:theme="@style/Theme.PET"
         tools:targetApi="31">
         <activity
-            android:name=".BoardList"
+            android:name=".UserInfoSettingActivity"
             android:exported="false" />
         <activity
             android:name=".BoardDetail"
             android:exported="false" />
         <activity
             android:name=".BoardRegister"
-            android:exported="false" />
-        <activity
-            android:name=".BoardFragment"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -32,6 +29,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.pet.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+    </application>
+    
 </manifest>
