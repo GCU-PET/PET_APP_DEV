@@ -23,10 +23,11 @@
         android:background="@drawable/round_yellow_border_rectangle"
         android:padding="10dp"
         android:text="WRITE A POST"
+        android:layout_marginBottom="15dp"
         android:textColor="@color/blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:fontFamily="@font/hanuman_regular"/>
+        android:fontFamily="@font/hanuman_bold"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

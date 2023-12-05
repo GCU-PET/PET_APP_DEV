@@ -76,6 +76,7 @@ public class BoardRegister extends AppCompatActivity {
         intent.setType("image/*");
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
         startActivityForResult(Intent.createChooser(intent, "Select Image"), REQUEST_CODE);
+
     }
 
     private void uploadPost() {
@@ -141,7 +142,7 @@ public class BoardRegister extends AppCompatActivity {
                     try {
                         bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
                         addedImage.setImageBitmap(bitmap);
-                        imageAddButton.setVisibility(View.GONE);
+                        //imageAddButton.setVisibility(View.GONE);
                         addedImage.setVisibility(View.VISIBLE);
                     } catch (IOException e) {
                         e.printStackTrace();

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".UserInfoSettingActivity">
 
     <LinearLayout
@@ -117,12 +118,39 @@
                 android:fontFamily="@font/hanuman_regular"
                 />
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="200dp"
                 android:layout_height="200dp"
                 android:layout_marginVertical="20dp"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/round_yellow_border_rectangle"/>
+                android:background="@drawable/round_yellow_border">
+
+
+                <ImageButton
+                    android:id="@+id/info_setting_add_image_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+
+                    android:background="@color/white"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/icon_add"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/round_yellow_border"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
 
