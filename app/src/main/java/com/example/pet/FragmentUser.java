@@ -6,11 +6,13 @@ import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,12 +21,23 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-public class FragmentUser extends Fragment {
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class FragmentUser extends Fragment implements OnTaskCompleted {
 
     public ImageButton editButton;
     public ImageView imagePet;
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int STORAGE_PERMISSION_REQUEST_CODE = 2;
+
+    @Override
+    public void onTaskCompleted(String result) {
+        // AsyncTask의 작업이 완료된 후 호출될 메서드
+        Log.i("Result1231231", result);
+    }
 
     @Nullable
     @Override
@@ -55,6 +68,15 @@ public class FragmentUser extends Fragment {
 
         imagePet = view.findViewById(R.id.image_pet);
 
+        Gson gson = new Gson();
+        List<String> listA = new ArrayList<String>();
+        listA.add("[abc, asd]");
+        listA.add("POST");
+        listA.add("api/board/test");
+        String jsonWifiData = gson.toJson(listA); // converting wifiData to JSON format
+
+        new SendDataTask(this).execute(jsonWifiData);
+
         return view;
     }
 
@@ -78,4 +100,5 @@ public class FragmentUser extends Fragment {
         }
 
     }
+
 }

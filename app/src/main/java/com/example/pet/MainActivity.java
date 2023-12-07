@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ViewPager2 sliderViewPager;
-    private ImageButton imageBtn;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -28,10 +27,6 @@ public class MainActivity extends AppCompatActivity {
 
         sliderViewPager = findViewById(R.id.sliderViewPager);
         tabLayout = findViewById(R.id.tab_layout);
-
-//        tabLayout.addTab(tabLayout.newTab().setText("카메라"));
-//        tabLayout.addTab(tabLayout.newTab().setText("홈"));
-//        tabLayout.addTab(tabLayout.newTab().setText("게시판"));
 
         ViewPager2Adapter viewPager2Adapter = new ViewPager2Adapter(this);
         sliderViewPager.setAdapter(viewPager2Adapter);
