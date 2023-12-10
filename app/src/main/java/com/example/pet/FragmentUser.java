@@ -21,11 +21,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -43,46 +41,11 @@ public class FragmentUser extends Fragment implements OnTaskCompleted {
     public ImageButton editButton;
     public ImageView imagePet;
     private static final int PICK_IMAGE_REQUEST = 1;
-    private RecyclerView recyclerView;
-    private BoardListAdapter adapter;
-    private List<BoardItem> boardItemList;
 
     @Override
     public void onTaskCompleted(String result) {
         // AsyncTask의 작업이 완료된 후 호출될 메서드
         Log.i("Result1231231", result);
-
-        try {
-            JSONObject jsonObject = new JSONObject(result);
-            String resultStatus = jsonObject.getString("result");
-
-            if ("success".equals(resultStatus)) {
-                JSONArray boardArray = jsonObject.getJSONArray("board");
-
-                for (int i = 0; i < boardArray.length(); i++) {
-                    JSONObject boardObject = boardArray.getJSONObject(i);
-
-                    String title = boardObject.getString("title");
-                    String date = boardObject.getString("date");
-                    String userID = boardObject.getString("writer");
-                    String content = boardObject.getString("content");
-
-                    // BoardItem 객체 생성
-                    BoardItem boardItem = new BoardItem(title, userID, date, content);
-
-                    // RecyclerView에 추가
-                    boardItemList.add(boardItem);
-                    adapter.notifyItemInserted(boardItemList.size() - 1);
-                    recyclerView.scrollToPosition(boardItemList.size() - 1);
-                }
-            } else {
-                // 서버에서 실패 응답이 온 경우에 대한 처리
-                Log.e("error", "서버 응답 실패");
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-            // JSON 파싱 오류 처리
-        }
     }
 
     @Nullable

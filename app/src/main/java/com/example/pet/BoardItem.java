@@ -8,16 +8,11 @@ public class BoardItem {
     private String title;
     private String content;
     private Uri imageUri;
-    private String userID;
-    private String date;
 
-    public BoardItem(String title,String userID, String date, String content, Uri imageUri) {
+    public BoardItem(String title, String content, Uri imageUri) {
         this.title = title;
         this.content = content;
         this.imageUri = imageUri;
-        this.userID = userID;
-        this.date = date;
-
     }
 
     public String getTitle() {
