@@ -34,6 +34,8 @@ public class BoardListAdapter extends RecyclerView.Adapter<BoardListAdapter.Boar
         holder.imageView.setImageURI(item.getImageUri());
         holder.titleTextView.setText(item.getTitle());
         holder.contentTextView.setText(item.getContent());
+        holder.IDTextView.setText(item.getContent());
+        holder.DateTextView.setText(item.getContent());
     }
 
     @Override
@@ -42,8 +44,7 @@ public class BoardListAdapter extends RecyclerView.Adapter<BoardListAdapter.Boar
     }
 
     public class BoardItemViewHolder extends RecyclerView.ViewHolder {
-        public TextView titleTextView;
-        public TextView contentTextView;
+        public TextView titleTextView, contentTextView, IDTextView, DateTextView;
         public ImageView imageView;
 
         public BoardItemViewHolder(View view) {
@@ -51,6 +52,9 @@ public class BoardListAdapter extends RecyclerView.Adapter<BoardListAdapter.Boar
             titleTextView = view.findViewById(R.id.itemTitleTextView);
             contentTextView = view.findViewById(R.id.itemContentTextView);
             imageView = view.findViewById(R.id.itemImageView);
+
+            IDTextView = view.findViewById(R.id.itemUserIDTextView);
+            DateTextView = view.findViewById(R.id.itemDateTextView);
         }
     }
 

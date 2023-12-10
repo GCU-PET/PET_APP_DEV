@@ -12,6 +12,13 @@
         tools:context=".UserInfoSettingActivity"
         android:orientation="vertical">
 
+        <Button
+            android:id="@+id/userInfo_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SUBMIT"
+            android:layout_gravity="center"/>
+
         <LinearLayout
             android:id="@+id/layout_info_setting_user"
             android:layout_width="match_parent"
@@ -46,7 +53,7 @@
                 />
 
             <EditText
-                android:id="@+id/user_email"
+                android:id="@+id/user_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="@string/user_id"

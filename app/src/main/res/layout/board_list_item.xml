@@ -24,13 +24,38 @@
             android:layout_margin="5dp"
             android:fontFamily="@font/hanuman_bold"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/itemDateTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date"
+                android:textSize="15dp"
+                android:layout_margin="5dp"
+                android:fontFamily="@font/hanuman_regular"/>
+
+            <TextView
+                android:id="@+id/itemUserIDTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="User Id"
+                android:textSize="15dp"
+                android:layout_margin="5dp"
+                android:fontFamily="@font/hanuman_regular"/>
+
+        </LinearLayout>
+
+
         <!--    게시판 게시글의 내용 일부-->
         <TextView
             android:id="@+id/itemContentTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Content"
-            android:textSize="15dp"
+            android:textSize="20dp"
             android:layout_margin="5dp"
             android:fontFamily="@font/hanuman_regular"/>
 
