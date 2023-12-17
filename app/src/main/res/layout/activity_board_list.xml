@@ -9,12 +9,20 @@
     android:layout_margin="15dp"
     android:minHeight="300dp">
 
-    <!--    여기에 board list item을 동적으로 추가-->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/boardList_recyclerView"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!--    여기에 board list item을 동적으로 추가-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/boardList_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/writeBtn"

@@ -31,11 +31,11 @@ public class BoardListAdapter extends RecyclerView.Adapter<BoardListAdapter.Boar
     public void onBindViewHolder(@NonNull BoardItemViewHolder holder, int position) {
         BoardItem item = boardItemList.get(position);
 
-        holder.imageView.setImageURI(item.getImageUri());
+        //holder.imageView.setImageURI(item.getImageUri());
         holder.titleTextView.setText(item.getTitle());
         holder.contentTextView.setText(item.getContent());
-        holder.IDTextView.setText(item.getContent());
-        holder.DateTextView.setText(item.getContent());
+        holder.IDTextView.setText(item.getID());
+        holder.DateTextView.setText(item.getDate());
     }
 
     @Override

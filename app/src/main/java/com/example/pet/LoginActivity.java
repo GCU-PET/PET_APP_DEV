@@ -126,11 +126,6 @@ public class LoginActivity extends AppCompatActivity implements OnTaskCompleted{
 
                 try {
                     jsonParam.put("ID", i);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-
-                try {
                     jsonParam.put("PW", p);
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -214,7 +209,6 @@ public class LoginActivity extends AppCompatActivity implements OnTaskCompleted{
             // 파일 이름
             String fileName = "token.txt";
 
-            // 파일이 이미 존재하는지 확인
             File file = new File(getFilesDir(), fileName);
             // 파일 생성 및 쓰기
             FileOutputStream fos = openFileOutput(fileName, Context.MODE_PRIVATE);

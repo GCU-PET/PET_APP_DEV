@@ -36,17 +36,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FragmentUser extends Fragment implements OnTaskCompleted {
+public class FragmentUser extends Fragment {
 
     public ImageButton editButton;
     public ImageView imagePet;
     private static final int PICK_IMAGE_REQUEST = 1;
 
-    @Override
-    public void onTaskCompleted(String result) {
-        // AsyncTask의 작업이 완료된 후 호출될 메서드
-        Log.i("Result1231231", result);
-    }
+//    @Override
+//    public void onTaskCompleted(String result) {
+//        // AsyncTask의 작업이 완료된 후 호출될 메서드
+//        Log.i("Result1231231", result);
+//    }
 
     @Nullable
     @Override
@@ -78,55 +78,55 @@ public class FragmentUser extends Fragment implements OnTaskCompleted {
         imagePet = view.findViewById(R.id.image_pet);
 
 
-        // 서버 연동
-        String i = "asd";
-        String p = "1234";
-
-        JSONObject jsonParam = new JSONObject();
-
-        try {
-            jsonParam.put("ID", i);
-            jsonParam.put("PW", p);
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
-
-        // 토큰 파일이 이미 존재하는지 확인
-        File file = new File(requireActivity().getFilesDir(), "token.txt");
-        String token = "";
-        // 파일 존재 여부 확인
-        if (file.exists()) {
-            // 파일이 존재할 경우의 처리
-            try {
-                // 파일 읽기
-                BufferedReader reader = new BufferedReader(new FileReader(file));
-                StringBuilder content = new StringBuilder();
-                String line;
-
-                while ((line = reader.readLine()) != null) {
-                    content.append(line);
-                }
-
-                reader.close();
-                // 읽은 내용 출력 또는 다른 처리 수행
-                String fileContent = content.toString();
-                token = fileContent;
-                Log.i("File Content - Token: ", fileContent);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        Gson gson = new Gson();
-        List<String> listA = new ArrayList<String>();
-        listA.add(String.valueOf(jsonParam));
-        listA.add("GET");
-        listA.add("api/board/list");
-        listA.add(token);
-
-        String jsonWifiData = gson.toJson(listA); // converting wifiData to JSON format
-
-        new SendDataTask(this).execute(jsonWifiData);
+//        // 서버 연동
+//        String i = "asd";
+//        String p = "1234";
+//
+//        JSONObject jsonParam = new JSONObject();
+//
+//        try {
+//            jsonParam.put("ID", i);
+//            jsonParam.put("PW", p);
+//        } catch (JSONException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//        // 토큰 파일이 이미 존재하는지 확인
+//        File file = new File(requireActivity().getFilesDir(), "token.txt");
+//        String token = "";
+//        // 파일 존재 여부 확인
+//        if (file.exists()) {
+//            // 파일이 존재할 경우의 처리
+//            try {
+//                // 파일 읽기
+//                BufferedReader reader = new BufferedReader(new FileReader(file));
+//                StringBuilder content = new StringBuilder();
+//                String line;
+//
+//                while ((line = reader.readLine()) != null) {
+//                    content.append(line);
+//                }
+//
+//                reader.close();
+//                // 읽은 내용 출력 또는 다른 처리 수행
+//                String fileContent = content.toString();
+//                token = fileContent;
+//                Log.i("File Content - Token: ", fileContent);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        Gson gson = new Gson();
+//        List<String> listA = new ArrayList<String>();
+//        listA.add(String.valueOf(jsonParam));
+//        listA.add("GET");
+//        listA.add("api/board/list");
+//        listA.add(token);
+//
+//        String jsonWifiData = gson.toJson(listA); // converting wifiData to JSON format
+//
+//        new SendDataTask(this).execute(jsonWifiData);
 
         return view;
     }
