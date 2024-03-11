@@ -31,11 +31,20 @@
             android:layout_marginVertical="5dp"
             android:fontFamily="@font/hanuman_regular"/>
 
+        <TextView
+            android:id="@+id/loginFailure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#cc0101"
+            android:layout_marginTop="10dp"
+            android:text="CHECK YOUR ID AND PASSWORD AGAIN."
+            android:fontFamily="@font/hanuman_regular"/>
+
         <Button
             android:id="@+id/loginBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:text="LOGIN"
             android:fontFamily="@font/hanuman_bold"/>
 

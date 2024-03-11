@@ -123,38 +123,47 @@ public class UserInfoSettingActivity extends AppCompatActivity implements OnTask
         });
 
 
-//        imageAddButton = findViewById(R.id.info_setting_add_image_button);
-//
-//        imageAddButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // pickImage 메소드
-//                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-//                intent.setType("image/*");
-//                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
-//                startActivityForResult(Intent.createChooser(intent, "Select Image"), REQUEST_CODE);
-//            }
-//        });
+        imageAddButton = findViewById(R.id.info_setting_add_image_button);
+
+        imageAddButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(Intent.createChooser(intent, "Select Image"), REQUEST_CODE);
+            }
+        });
+
+        imageAddButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // pickImage 메소드
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
+                startActivityForResult(Intent.createChooser(intent, "Select Image"), REQUEST_CODE);
+            }
+        });
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
-//            if (data != null) {
-//                Uri imageUri = data.getData();
-//                if (imageUri != null) {
-//                    Bitmap bitmap;
-//                    try {
-//                        bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-//                        imageAddButton.setImageBitmap(bitmap);
-//                        imageAddButton.setVisibility(View.VISIBLE);
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-//        }
-//    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+            if (data != null) {
+                Uri imageUri = data.getData();
+                if (imageUri != null) {
+                    Bitmap bitmap = null;
+                    try {
+                        bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                        imageAddButton.setImageBitmap(bitmap);
+                        imageAddButton.setVisibility(View.VISIBLE);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
 
 }

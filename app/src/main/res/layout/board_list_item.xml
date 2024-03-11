@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:padding="10dp"
     android:layout_margin="5dp"
-    android:background="@drawable/round_white_rectangle">
+    android:background="#FF0000">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="0dp"
@@ -22,6 +22,7 @@
             android:text="Title"
             android:textSize="25dp"
             android:layout_margin="5dp"
+            android:textColor="@color/black"
             android:fontFamily="@font/hanuman_bold"/>
 
         <LinearLayout
@@ -35,6 +36,7 @@
                 android:text="Date"
                 android:textSize="15dp"
                 android:layout_margin="5dp"
+                android:textColor="@color/black"
                 android:fontFamily="@font/hanuman_regular"/>
 
             <TextView
@@ -44,6 +46,7 @@
                 android:text="User Id"
                 android:textSize="15dp"
                 android:layout_margin="5dp"
+                android:textColor="@color/black"
                 android:fontFamily="@font/hanuman_regular"/>
 
         </LinearLayout>
@@ -57,6 +60,7 @@
             android:text="Content"
             android:textSize="20dp"
             android:layout_margin="5dp"
+            android:textColor="@color/black"
             android:fontFamily="@font/hanuman_regular"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -64,5 +68,5 @@
         android:id="@+id/itemImageView"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:scaleType="fitCenter"/>
+        android:scaleType="fitCenter" />
 </LinearLayout>

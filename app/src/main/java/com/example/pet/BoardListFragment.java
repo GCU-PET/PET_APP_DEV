@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -74,13 +75,18 @@ public class BoardListFragment extends Fragment implements OnTaskCompleted{
                         BoardItem boardItem = new BoardItem(title, formattedDate, UserID, content);
 
                         // RecyclerView에 추가
-                        boardItemList.add(boardItem);
-                        adapter.notifyItemInserted(boardItemList.size() - 1);
-                        recyclerView.scrollToPosition(boardItemList.size() - 1);
+                        boardItemList.add(0, boardItem);
+                        adapter.notifyItemInserted(0);
+                        recyclerView.scrollToPosition(0);
                     }
+
+                    Toast.makeText(getContext(), "게시글이 등록되었습니다!", Toast.LENGTH_SHORT).show();
                 } else {
                     // 서버에서 실패 응답이 온 경우에 대한 처리
                     Log.e("server","서버 실패 응답");
+
+                    Toast.makeText(getContext(), result.toString(), Toast.LENGTH_SHORT).show();
+
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -212,6 +218,9 @@ public class BoardListFragment extends Fragment implements OnTaskCompleted{
         adapter.notifyDataSetChanged();
     }
 
+}
+
+
 //    @Override
 //    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 //        super.onActivityResult(requestCode, resultCode, data);
@@ -240,5 +249,3 @@ public class BoardListFragment extends Fragment implements OnTaskCompleted{
 //            }
 //        }
 //    }
-
-}

@@ -7,6 +7,7 @@ import androidx.loader.content.AsyncTaskLoader;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -37,10 +38,17 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.http.Multipart;
+
 public class BoardRegister extends AppCompatActivity implements OnTaskCompleted{
 
     // 로그에 사용할 TAG 변수 선언
     final private String TAG = getClass().getSimpleName();
+
+    private File photoFile;
 
     // 사용할 컴포넌트 선언
     private ImageButton imageAddButton;
@@ -66,19 +74,19 @@ public class BoardRegister extends AppCompatActivity implements OnTaskCompleted{
         setContentView(R.layout.activity_board_register);
 
         //컴포넌트 초기화
-        //imageAddButton = findViewById(R.id.board_add_image_button);
+        imageAddButton = findViewById(R.id.board_add_image_button);
         addedImage = findViewById(R.id.board_added_image);
 
         titleInput = findViewById(R.id.board_title_input);
         contentInput = findViewById(R.id.board_content_input);
         registBtn = findViewById(R.id.registBtn);
 
-//        imageAddButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                pickImage();
-//            }
-//        });
+        imageAddButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pickImage();
+            }
+        });
 
         //버튼 이벤트 추가
         registBtn.setOnClickListener(new View.OnClickListener() {
@@ -89,6 +97,11 @@ public class BoardRegister extends AppCompatActivity implements OnTaskCompleted{
                 String title = titleInput.getText().toString();
                 String content = contentInput.getText().toString();
 
+                RequestBody fileBody = RequestBody.create(MediaType.parse("image/*"), photoFile);
+                MultipartBody.Part profile = MultipartBody.Part.createFormData("profile", photoFile.getName(), fileBody);
+
+
+
                 JSONObject jsonParam = new JSONObject();
                 try {
                     jsonParam.put("title", title); //
@@ -97,6 +110,11 @@ public class BoardRegister extends AppCompatActivity implements OnTaskCompleted{
                 }
                 try {
                     jsonParam.put("content",content); //
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+                try {
+                    jsonParam.put("profile",profile);
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
@@ -131,7 +149,7 @@ public class BoardRegister extends AppCompatActivity implements OnTaskCompleted{
                 List<String> listA = new ArrayList<String>();
                 listA.add(String.valueOf(jsonParam));
                 listA.add("POST");
-                listA.add("api/board/post"); //
+                listA.add("api/board/post/image"); //
                 listA.add(token);
 
                 String jsonWifiData = gson.toJson(listA); // converting wifiData to JSON format
@@ -142,84 +160,85 @@ public class BoardRegister extends AppCompatActivity implements OnTaskCompleted{
         });
     }
 
-//    private void pickImage() {
-//        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-//        intent.setType("image/*");
-//        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
-//        startActivityForResult(Intent.createChooser(intent, "Select Image"), REQUEST_CODE);
-//
-//    }
+    private void pickImage() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
+        startActivityForResult(Intent.createChooser(intent, "Select Image"), REQUEST_CODE);
 
-//    private void uploadPost() {
-//        if (addedImage.getDrawable() != null) {
-//            String title = titleInput.getText().toString();
-//            String content = contentInput.getText().toString();
-//            Uri imageUri = getImageUri(addedImage);
-//
-//            if (imageUri != null) {  // 이미지 URI가 null인 경우 처리
-//                Intent resultIntent = new Intent();
-//                resultIntent.putExtra("title", title);
-//                resultIntent.putExtra("content", content);
-//                resultIntent.putExtra("imageUri", imageUri.toString());
-//                setResult(RESULT_OK, resultIntent);
-//
-//                finish();
-//            } else {
-//                Toast.makeText(this, "Failed to upload image.", Toast.LENGTH_SHORT).show();
-//                finish();
-//            }
-//        }else {
-//            String title = titleInput.getText().toString();
-//            String content = contentInput.getText().toString();
-//
-//            Intent resultIntent = new Intent();
-//            resultIntent.putExtra("title", title);
-//            resultIntent.putExtra("content", content);
-//            setResult(RESULT_OK, resultIntent);
-//
-//            finish();
-//        }
-//    }
+    }
 
-//    private Uri getImageUri(ImageView imageView) {
-//        Drawable drawable = imageView.getDrawable();
-//        Bitmap bitmap = null;
-//
-//        if (drawable instanceof BitmapDrawable) {
-//            bitmap = ((BitmapDrawable) drawable).getBitmap();
-//        }
-//
-//        // 이미지를 저장할 임시 파일 생성
-//        File imageFile = new File(getCacheDir(), "temp_image.jpg");
-//        try (OutputStream outputStream = Files.newOutputStream(imageFile.toPath())) {
-//            assert bitmap != null;
-//            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        // FileProvider를 사용하여 콘텐츠 URI 생성
-//        return FileProvider.getUriForFile(this, getPackageName() + ".fileprovider", imageFile);
-//    }
-//
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
-//            if (data != null) {
-//                Uri imageUri = data.getData();
-//                if (imageUri != null) {
-//                    Bitmap bitmap;
-//                    try {
-//                        bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-//                        addedImage.setImageBitmap(bitmap);
-//                        //imageAddButton.setVisibility(View.GONE);
-//                        addedImage.setVisibility(View.VISIBLE);
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-//        }
-//    }
+    private void uploadPost() {
+        if (addedImage.getDrawable() != null) {
+            String title = titleInput.getText().toString();
+            String content = contentInput.getText().toString();
+            Uri imageUri = getImageUri(addedImage);
+
+            if (imageUri != null) {  // 이미지 URI가 null인 경우 처리
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("title", title);
+                resultIntent.putExtra("content", content);
+                resultIntent.putExtra("imageUri", imageUri.toString());
+                setResult(RESULT_OK, resultIntent);
+
+                finish();
+            } else {
+                Toast.makeText(this, "Failed to upload image.", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }else {
+            String title = titleInput.getText().toString();
+            String content = contentInput.getText().toString();
+
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("title", title);
+            resultIntent.putExtra("content", content);
+            setResult(RESULT_OK, resultIntent);
+
+            finish();
+        }
+    }
+
+    private Uri getImageUri(ImageView imageView) {
+        Drawable drawable = imageView.getDrawable();
+        Bitmap bitmap = null;
+
+        if (drawable instanceof BitmapDrawable) {
+            bitmap = ((BitmapDrawable) drawable).getBitmap();
+        }
+
+        // 이미지를 저장할 임시 파일 생성
+        File imageFile = new File(getCacheDir(), "temp_image.jpg");
+        try (OutputStream outputStream = Files.newOutputStream(imageFile.toPath())) {
+            assert bitmap != null;
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // FileProvider를 사용하여 콘텐츠 URI 생성
+        return FileProvider.getUriForFile(this, getPackageName() + ".fileprovider", imageFile);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+            if (data != null) {
+                Uri imageUri = data.getData();
+                if (imageUri != null) {
+                    Bitmap bitmap;
+                    try {
+                        bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                        addedImage.setImageBitmap(bitmap);
+                        //imageAddButton.setVisibility(View.GONE);
+                        addedImage.setVisibility(View.VISIBLE);
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
 }

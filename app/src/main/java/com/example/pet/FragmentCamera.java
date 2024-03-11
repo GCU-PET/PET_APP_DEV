@@ -26,7 +26,7 @@ public class FragmentCamera extends Fragment {
         webSettings.setJavaScriptEnabled(true); // allow the js
 
         webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl("..."); //링크 삽입.
+        webView.loadUrl("https://better-tools-tie.loca.lt"); //링크 삽입.
 
         return view;
     }

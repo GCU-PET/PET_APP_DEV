@@ -27,7 +27,6 @@ public class SendDataTask extends AsyncTask<String, Void, String> {
         this.listener = listener;
     }
 
-
     @Override
     protected String doInBackground(String... strings) {
         try {
@@ -45,7 +44,7 @@ public class SendDataTask extends AsyncTask<String, Void, String> {
             System.out.println("Method: " + method);
             System.out.println("Endpoint: " + endpoint);
 
-            String urlString = "https://f594-183-98-101-163.ngrok-free.app/" + endpoint;
+            String urlString = "https://wicked-paws-make.loca.lt/" + endpoint;
             URL url = new URL(urlString);
             System.out.println(url);
             System.out.println(method);
@@ -109,41 +108,60 @@ public class SendDataTask extends AsyncTask<String, Void, String> {
                 // 응답 데이터 출력
                 System.out.println("Response Data: " + response.toString());
                 return response.toString();
+
             } else {
+                // 응답데이터가 오류일 경우 에러스트림을 읽어 해당 내용을 로깅해서 반환
+                // onPostExecute에서 결과 확인하고 사용자에게 피드백
                 System.out.println("API 요청 실패");
-            }
-            // 에러 응답인 경우
-            if (responseCode == HttpURLConnection.HTTP_NOT_FOUND) {
-                // 에러 응답 데이터 읽기
+
+                //오류 처리
                 BufferedReader errorReader = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
                 String errorInputLine;
                 StringBuilder errorResponse = new StringBuilder();
 
-                while ((errorInputLine = errorReader.readLine()) != null) {
+                while((errorInputLine =errorReader.readLine()) != null) {
                     errorResponse.append(errorInputLine);
                 }
 
                 errorReader.close();
 
-                // 에러 응답 데이터 출력
-                System.out.println("Error Response Data: " + errorResponse.toString());
-            } else {
-                // 성공한 경우 등에 대한 처리
-                // ...
+                // 오류 응답 데이터 로깅 또는 반환
+                Log.e("HTTP Error Response", errorResponse.toString());
+
+                // 연결 끊기
+                conn.disconnect();
+                // 상태 코드와 함께 오류 메시지 반환
+                return "Error - HTTP Code: " + responseCode + " Response: " + errorResponse.toString();
             }
 
-            // 연결 닫기
-            conn.disconnect();
-            return Integer.toString(responseCode);
+//            // 에러 응답인 경우
+//            if (responseCode == HttpURLConnection.HTTP_NOT_FOUND) {
+//                // 에러 응답 데이터 읽기
+//                BufferedReader errorReader = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+//                String errorInputLine;
+//                StringBuilder errorResponse = new StringBuilder();
+//
+//                while ((errorInputLine = errorReader.readLine()) != null) {
+//                    errorResponse.append(errorInputLine);
+//                }
+//
+//                errorReader.close();
+//
+//                // 에러 응답 데이터 출력
+//                System.out.println("Error Response Data: " + errorResponse.toString());
+//            } else {
+//                // 성공한 경우 등에 대한 처리
+//                // ...
+//            }
+//
+//            // 연결 닫기
+//            conn.disconnect();
+//            return Integer.toString(responseCode);
 
 
         } catch (JSONException e) {
             e.printStackTrace();
             return "Network request failed: " + e.getMessage();
-        } catch (ProtocolException e) {
-            throw new RuntimeException(e);
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -188,24 +206,43 @@ public class SendDataTask extends AsyncTask<String, Void, String> {
     }
 
 
-    @Override
-    protected void onPostExecute(String result) {
-        if (result != null) {
-            // result를 활용하여 작업 수행
-            Log.e("Result", "Result received: " + result);
+        @Override
+        protected void onPostExecute(String result) {
+        super.onPostExecute(result);
 
-            // 예시: "true" 문자열과 비교
-            if ("success".equals(result)) {
-                Log.e("test", "true");
-            } else {
-                Log.e("test", "false");
-            }
+            if (result != null) {
+                // result를 활용하여 작업 수행
+                Log.d("Result", "Result received: " + result);
 
-            if (listener != null) {
-                listener.onTaskCompleted(result);
+//                // 예시: "true" 문자열과 비교
+//                if ("success".equals(result)) {
+//                    Log.e("test", "true");
+//                } else {
+//                    Log.e("test", "false");
+//                }
+
+                // 에러 메세지를 받았을 경우
+                if (result.startsWith("Error - HTTP Code:")) {
+                    // 오류 로직 처리, 예: 오류 메시지 파싱, 사용자에게 오류 알림 등
+                    Log.e("onPostExecute", "Operation failed: " + result);
+
+                    // 오류 메시지 추출 및 표시
+                    String errorMessage = result.substring(result.indexOf("Response: ") + 10);
+
+                    // 리스너를 통해 오류 결과 전달
+                    if (listener != null) {
+                        listener.onTaskCompleted(errorMessage);
+                    }
+                } else {
+                    if (listener != null) {
+                        listener.onTaskCompleted(result);
+                    }
+                }
+            }  else {
+                // 결과가 null인 경우의 처리
+                Log.e("onPostExecute", "Received null response");
+                listener.onTaskCompleted("No response received.");
             }
 
         }
-
-    }
 }
