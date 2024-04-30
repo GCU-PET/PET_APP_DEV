@@ -20,10 +20,10 @@
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/tab_background"
         android:theme="@style/tab_style"
-        android:background="@color/yellow"
-        app:tabBackground="@color/yellow"
-        app:tabSelectedTextColor="@color/blue"
+        app:tabBackground="@color/Maize"
+        app:tabSelectedTextColor="@color/RobinEggBlue"
         app:tabTextColor="@color/white"/>
 
 </LinearLayout>

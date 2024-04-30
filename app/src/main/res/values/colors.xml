@@ -11,4 +11,15 @@
     <color name="light_yellow">#FFF0CE</color>
     <color name="yellow">#FFC436</color>
     <color name="blue">#0174BE</color>
+
+
+    <color name="Ivory">#FFFFEA</color>
+    <color name="Maize">#FFED66</color>
+    <color name="DarkMaize">#BFB24C</color>
+
+    <color name="RobinEggBlue">#00CECB</color>
+    <color name="DarkBlue">#FF018786</color>
+    <color name="Timberwolf">#D8D8D8</color>
+    <color name="LightRed">#FF7F7F</color>
+    <color name="Bittersweet">#FF5E5B</color>
 </resources>

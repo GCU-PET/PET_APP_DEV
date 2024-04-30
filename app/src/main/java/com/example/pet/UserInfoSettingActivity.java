@@ -59,7 +59,7 @@ public class UserInfoSettingActivity extends AppCompatActivity implements OnTask
         userPassword = findViewById(R.id.user_password);
 
         petName = findViewById(R.id.pet_name);
-        petAge = findViewById(R.id.pet_age);
+//        petAge = findViewById(R.id.pet_age);
 
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override

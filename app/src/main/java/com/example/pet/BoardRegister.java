@@ -100,8 +100,6 @@ public class BoardRegister extends AppCompatActivity implements OnTaskCompleted{
                 RequestBody fileBody = RequestBody.create(MediaType.parse("image/*"), photoFile);
                 MultipartBody.Part profile = MultipartBody.Part.createFormData("profile", photoFile.getName(), fileBody);
 
-
-
                 JSONObject jsonParam = new JSONObject();
                 try {
                     jsonParam.put("title", title); //

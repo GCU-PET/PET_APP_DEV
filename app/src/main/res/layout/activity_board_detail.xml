@@ -6,15 +6,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".BoardDetail"
-    android:padding="15dp"
-    android:background="@color/light_yellow">
+    android:padding="15dp">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:fillViewport="true"
-        android:background="@drawable/round_white_rectangle">
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"

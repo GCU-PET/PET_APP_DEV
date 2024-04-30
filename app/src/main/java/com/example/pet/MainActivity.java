@@ -41,17 +41,19 @@ public class MainActivity extends AppCompatActivity {
                     // 탭 이름 설정
                     switch (position) {
                         case 0:
-                            tab.setIcon(R.drawable.icon_camera);
+                            tab.setIcon(R.drawable.camera_tab_idle);
                             break;
                         case 1:
-                            tab.setIcon(R.drawable.icon_home);
+                            tab.setIcon(R.drawable.home_tab_idle);
                             break;
                         case 2:
-                            tab.setIcon(R.drawable.icon_user);
+                            tab.setIcon(R.drawable.board_tab_idle);
+                        case 3:
+                            tab.setIcon(R.drawable.user_tab_idle);
                             break;
                         // 추가적인 탭 이름 설정
                         default:
-                            tab.setText("기탭 " + (position + 1));
+                            tab.setText(" " + (position + 1));
                             break;
                     }
                 }
@@ -66,10 +68,10 @@ public class MainActivity extends AppCompatActivity {
             if (tab != null) {
                 if (i == tabLayout.getSelectedTabPosition()) {
                     // 선택된 탭의 색상 설정
-                    tab.getIcon().setColorFilter(ContextCompat.getColor(tabLayout.getContext(), R.color.blue), PorterDuff.Mode.SRC_IN);
+                    tab.getIcon().setColorFilter(ContextCompat.getColor(tabLayout.getContext(), R.color.Ivory), PorterDuff.Mode.SRC_IN);
                 } else {
                     // 선택되지 않은 탭의 색상 설정
-                    tab.getIcon().setColorFilter(ContextCompat.getColor(tabLayout.getContext(), R.color.white), PorterDuff.Mode.SRC_IN);
+                    tab.getIcon().setColorFilter(ContextCompat.getColor(tabLayout.getContext(), R.color.RobinEggBlue), PorterDuff.Mode.SRC_IN);
                 }
             }
         }
@@ -84,19 +86,19 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onTabSelected(TabLayout.Tab tab) {
             // 선택된 탭의 색상 변경
-            tab.getIcon().setColorFilter(ContextCompat.getColor(tabLayout.getContext(), R.color.blue), PorterDuff.Mode.SRC_IN);
+            tab.getIcon().setColorFilter(ContextCompat.getColor(tabLayout.getContext(), R.color.RobinEggBlue), PorterDuff.Mode.SRC_IN);
         }
 
         @Override
         public void onTabUnselected(TabLayout.Tab tab) {
             // 선택되지 않은 탭의 색상 변경
-            tab.getIcon().setColorFilter(ContextCompat.getColor(tabLayout.getContext(), R.color.white), PorterDuff.Mode.SRC_IN);
+            tab.getIcon().setColorFilter(ContextCompat.getColor(tabLayout.getContext(), R.color.Ivory), PorterDuff.Mode.SRC_IN);
         }
 
         @Override
         public void onTabReselected(TabLayout.Tab tab) {
             // 재선택된 탭에 대한 동작 (선택되었을 때와 동일하게 처리해도 됨)
-            tab.getIcon().setColorFilter(ContextCompat.getColor(tabLayout.getContext(), R.color.blue), PorterDuff.Mode.SRC_IN);
+            tab.getIcon().setColorFilter(ContextCompat.getColor(tabLayout.getContext(), R.color.RobinEggBlue), PorterDuff.Mode.SRC_IN);
         }
     }
 }

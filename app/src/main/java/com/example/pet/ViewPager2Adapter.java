@@ -21,6 +21,8 @@ public class ViewPager2Adapter extends FragmentStateAdapter {
             case 1:
                 return new FragmentHome();
             case 2:
+                return new FragmentUserInfoSetting();
+            case 3:
                 return new FragmentUser();
             default:
                 return null;

@@ -12,125 +12,18 @@
         tools:context=".UserInfoSettingActivity"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/userInfo_submit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SUBMIT"
-            android:layout_gravity="center"/>
-
-        <LinearLayout
-            android:id="@+id/layout_info_setting_user"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/round_rectangle"
-            android:orientation="vertical"
-            android:layout_margin="10dp"
-            android:padding="15dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="User Info"
-                android:textAppearance="@style/info_text"
-                android:fontFamily="@font/hanuman_light"
-                />
-
-            <EditText
-                android:id="@+id/user_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="@string/user_name"
-                android:textAppearance="@style/info_input"
-                android:fontFamily="@font/hanuman_regular"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="E-mail (ID)"
-                android:textAppearance="@style/info_text"
-                android:fontFamily="@font/hanuman_light"
-                />
-
-            <EditText
-                android:id="@+id/user_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="@string/user_id"
-                android:textAppearance="@style/info_input"
-                android:fontFamily="@font/hanuman_regular"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Password"
-                android:textAppearance="@style/info_text"
-                android:fontFamily="@font/hanuman_light"
-                />
-
-            <EditText
-                android:id="@+id/user_password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="@string/user_password"
-                android:textAppearance="@style/info_input"
-                android:fontFamily="@font/hanuman_regular"
-                />
-
-        </LinearLayout>
-
         <LinearLayout
             android:id="@+id/layout_info_setting_pet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/round_rectangle"
             android:orientation="vertical"
-            android:layout_margin="10dp"
-            android:padding="15dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Pet Info"
-                android:textAppearance="@style/info_text"
-                android:fontFamily="@font/hanuman_regular"
-
-                />
-
-            <EditText
-                android:id="@+id/pet_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="@string/pet_name"
-                android:textAppearance="@style/info_input"
-                android:fontFamily="@font/hanuman_regular"
-                />
-
-            <EditText
-                android:id="@+id/pet_age"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="@string/pet_age"
-                android:textAppearance="@style/info_input"
-                android:fontFamily="@font/hanuman_regular"
-                />
-
-            <TextView
-                android:id="@+id/pet_state"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="pet state"
-                android:textAppearance="@style/info_input"
-                android:fontFamily="@font/hanuman_regular"
-                />
+            android:padding="20dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="200dp"
                 android:layout_height="200dp"
                 android:layout_marginVertical="20dp"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/round_yellow_border">
+                android:layout_gravity="center_horizontal">
 
 
                 <ImageButton
@@ -139,27 +32,126 @@
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
 
-                    android:background="@color/white"
+                    android:background="@drawable/red_ellipse"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/icon_add"
+                    android:src="@drawable/red_ellipse"
 
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/round_yellow_border"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+<!--                <View-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:background="@drawable/red_ellipse"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your Pet"
+                android:textAppearance="@style/info_text"
+                android:fontFamily="@font/hanuman_regular"
+                android:layout_margin="10dp"
+                />
+
+            <EditText
+                android:id="@+id/pet_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/pet_name"
+                android:background="@drawable/yellow_rectangle"
+                android:textAppearance="@style/info_input"
+                android:fontFamily="@font/hanuman_regular"
+                android:paddingLeft="14dp"
+                />
+
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_info_setting_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="User Info"
+                android:textAppearance="@style/info_text"
+                android:fontFamily="@font/hanuman_regular"
+                android:layout_margin="10dp"
+                />
+
+            <EditText
+                android:id="@+id/user_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/user_name"
+                android:paddingLeft="15dp"
+                android:textAppearance="@style/info_input"
+                android:fontFamily="@font/hanuman_regular"
+                android:background="@drawable/yellow_rectangle"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="E-mail (ID)"
+                android:textAppearance="@style/info_text"
+                android:fontFamily="@font/hanuman_regular"
+                android:layout_margin="10dp"
+                />
+
+            <EditText
+                android:id="@+id/user_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/user_id"
+                android:textAppearance="@style/info_input"
+                android:fontFamily="@font/hanuman_regular"
+                android:paddingLeft="15dp"
+                android:background="@drawable/yellow_rectangle"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Password"
+                android:textAppearance="@style/info_text"
+                android:fontFamily="@font/hanuman_regular"
+                android:layout_margin="10dp"
+                />
+
+            <EditText
+                android:id="@+id/user_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/user_password"
+                android:textAppearance="@style/info_input"
+                android:fontFamily="@font/hanuman_regular"
+                android:paddingLeft="15dp"
+                android:background="@drawable/yellow_rectangle"
+                />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/userInfo_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_background"
+            android:text="Save Change"
+            android:textSize="20dp"
+            android:fontFamily="@font/hanuman_regular"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"/>
 
     </LinearLayout>
 

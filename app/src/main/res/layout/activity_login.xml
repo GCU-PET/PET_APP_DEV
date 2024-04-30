@@ -6,132 +6,196 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity"
     android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center"
+    android:padding="25dp">
 
-    <LinearLayout
-        android:id="@+id/login_layout"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingStart="60dp">
+        android:text="ID"
+        android:textSize="24dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/hanuman_regular"/>
 
-        <EditText
-            android:id="@+id/id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="5dp"
-            android:hint="ID (E-mail)"
-            android:fontFamily="@font/hanuman_regular"/>
+    <EditText
+        android:id="@+id/id"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/yellow_rectangle"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/hanuman_regular"/>
 
-        <EditText
-            android:id="@+id/password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="PASSWORD"
-            android:layout_marginVertical="5dp"
-            android:fontFamily="@font/hanuman_regular"/>
-
-        <TextView
-            android:id="@+id/loginFailure"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#cc0101"
-            android:layout_marginTop="10dp"
-            android:text="CHECK YOUR ID AND PASSWORD AGAIN."
-            android:fontFamily="@font/hanuman_regular"/>
-
-        <Button
-            android:id="@+id/loginBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="LOGIN"
-            android:fontFamily="@font/hanuman_bold"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Do you not have an account?  "
-                android:fontFamily="@font/hanuman_light"/>
-
-            <TextView
-                android:id="@+id/signup_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Sign up HERE."
-                android:fontFamily="@font/hanuman_light"/>
-        </LinearLayout>
-
-    </LinearLayout>
-
-
-
-    <LinearLayout
-        android:id="@+id/regis_layout"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingStart="60dp">
+        android:text="Password"
+        android:textSize ="24dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/hanuman_regular"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/yellow_rectangle"
+        android:fontFamily="@font/hanuman_regular"/>
 
-            <EditText
-                android:id="@+id/regis_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="ID (E-mail)"
-                android:fontFamily="@font/hanuman_regular"
-                android:layout_marginVertical="5dp" />
+    <TextView
+        android:id="@+id/loginFailure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#cc0101"
+        android:layout_marginTop="10dp"
+        android:text="CHECK YOUR ID AND PASSWORD AGAIN."
+        android:fontFamily="@font/hanuman_regular"
+        android:layout_marginVertical="30dp"/>
 
-            <Button
-                android:id="@+id/dupliBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Duplicate Check"
-                android:fontFamily="@font/hanuman_bold"
-                android:layout_marginVertical="5dp"
-                android:layout_marginLeft="10dp"/>
-            />
-        </LinearLayout>
-
-        <EditText
-            android:id="@+id/regis_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="PASSWORD"
-            android:fontFamily="@font/hanuman_regular"
-            android:layout_marginVertical="5dp"/>
+    <Button
+        android:id="@+id/loginBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/green_rectangle"
+        android:backgroundTint="@color/RobinEggBlue"
+        android:layout_marginBottom="20dp"
+        android:text="LOGIN"
+        android:textSize="20dp"
+        android:fontFamily="@font/hanuman_regular"/>
 
 
-        <Button
-            android:id="@+id/regis_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SIGN UP"
-            android:fontFamily="@font/hanuman_bold"
-            android:layout_marginTop="20dp"/>
+    <Button
+        android:id="@+id/signinBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/green_rectangle"
+        android:backgroundTint="@color/RobinEggBlue"
+        android:text="SIGN IN"
+        android:textSize="20dp"
+        android:fontFamily="@font/hanuman_regular"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+<!--    <LinearLayout-->
+<!--        android:id="@+id/login_layout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        android:paddingStart="60dp">-->
 
-            <TextView
-                android:id="@+id/backtologin_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Go Back to Login page"
-                android:fontFamily="@font/hanuman_light"/>
-        </LinearLayout>
+<!--        <EditText-->
+<!--            android:id="@+id/id"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginVertical="5dp"-->
+<!--            android:hint="ID (E-mail)"-->
+<!--            android:fontFamily="@font/hanuman_regular"/>-->
 
-    </LinearLayout>
+<!--        <EditText-->
+<!--            android:id="@+id/password"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:hint="PASSWORD"-->
+<!--            android:layout_marginVertical="5dp"-->
+<!--            android:fontFamily="@font/hanuman_regular"/>-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/loginFailure"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="#cc0101"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:text="CHECK YOUR ID AND PASSWORD AGAIN."-->
+<!--            android:fontFamily="@font/hanuman_regular"/>-->
+
+<!--        <Button-->
+<!--            android:id="@+id/loginBtn"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:text="LOGIN"-->
+<!--            android:fontFamily="@font/hanuman_bold"/>-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:text="Do you not have an account?  "-->
+<!--                android:fontFamily="@font/hanuman_light"/>-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/signup_text"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:text="Sign up HERE."-->
+<!--                android:fontFamily="@font/hanuman_light"/>-->
+<!--        </LinearLayout>-->
+
+<!--    </LinearLayout>-->
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/regis_layout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        android:paddingStart="60dp">-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
+
+<!--            <EditText-->
+<!--                android:id="@+id/regis_id"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:hint="ID (E-mail)"-->
+<!--                android:fontFamily="@font/hanuman_regular"-->
+<!--                android:layout_marginVertical="5dp" />-->
+
+<!--            <Button-->
+<!--                android:id="@+id/dupliBtn"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Duplicate Check"-->
+<!--                android:fontFamily="@font/hanuman_bold"-->
+<!--                android:layout_marginVertical="5dp"-->
+<!--                android:layout_marginLeft="10dp"/>-->
+<!--            />-->
+<!--        </LinearLayout>-->
+
+<!--        <EditText-->
+<!--            android:id="@+id/regis_password"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:hint="PASSWORD"-->
+<!--            android:fontFamily="@font/hanuman_regular"-->
+<!--            android:layout_marginVertical="5dp"/>-->
+
+
+<!--        <Button-->
+<!--            android:id="@+id/regis_btn"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="SIGN UP"-->
+<!--            android:fontFamily="@font/hanuman_bold"-->
+<!--            android:layout_marginTop="20dp"/>-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/backtologin_text"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:text="Go Back to Login page"-->
+<!--                android:fontFamily="@font/hanuman_light"/>-->
+<!--        </LinearLayout>-->
+
+<!--    </LinearLayout>-->
 
 
 </LinearLayout>
