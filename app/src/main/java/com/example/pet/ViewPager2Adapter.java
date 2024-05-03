@@ -21,9 +21,9 @@ public class ViewPager2Adapter extends FragmentStateAdapter {
             case 1:
                 return new FragmentHome();
             case 2:
-                return new FragmentUserInfoSetting();
+                return new FragmentCommunity();
             case 3:
-                return new FragmentUser();
+                return new FragmentUserInfoSetting();
             default:
                 return null;
         }
@@ -31,6 +31,6 @@ public class ViewPager2Adapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 3;
+        return 4;
     }
 }
