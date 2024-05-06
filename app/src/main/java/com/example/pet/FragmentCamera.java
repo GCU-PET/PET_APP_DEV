@@ -1,11 +1,17 @@
 package com.example.pet;
 
+import android.annotation.TargetApi;
 import android.content.pm.ActivityInfo;
+import android.net.http.SslError;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.webkit.PermissionRequest;
+import android.webkit.SslErrorHandler;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -25,8 +31,24 @@ public class FragmentCamera extends Fragment {
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true); // allow the js
 
-        webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl("https://better-tools-tie.loca.lt"); //링크 삽입.
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+                // SSL 인증서 오류를 무시하고 로드하도록 합니다.
+                handler.proceed();
+            }
+        });
+
+        webView.setWebChromeClient(new WebChromeClient(){
+            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onPermissionRequest(PermissionRequest request) {
+                //super.onPermissionRequest(request);
+                request.grant(request.getResources());
+            }
+        });
+
+        webView.loadUrl("https://0373-218-153-129-75.ngrok-free.app"); //링크 삽입.
 
         return view;
     }

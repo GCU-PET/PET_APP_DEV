@@ -163,7 +163,6 @@ public class BoardRegister extends AppCompatActivity implements OnTaskCompleted{
         intent.setType("image/*");
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
         startActivityForResult(Intent.createChooser(intent, "Select Image"), REQUEST_CODE);
-
     }
 
     private void uploadPost() {

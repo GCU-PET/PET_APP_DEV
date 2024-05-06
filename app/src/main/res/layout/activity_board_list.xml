@@ -5,9 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".BoardListFragment"
-    android:layout_margin="15dp"
-    android:minHeight="300dp">
+    tools:context=".BoardListFragment">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
@@ -24,17 +22,17 @@
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/writeBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/green_rectangle_shadow"
-        android:padding="10dp"
-        android:text="WRITE A POST"
-        android:layout_marginBottom="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:fontFamily="@font/hanuman_bold"/>
+<!--    <androidx.appcompat.widget.AppCompatButton-->
+<!--        android:id="@+id/writeBtn"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@drawable/green_rectangle_shadow"-->
+<!--        android:padding="10dp"-->
+<!--        android:text="WRITE A POST"-->
+<!--        android:layout_marginBottom="15dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        android:fontFamily="@font/hanuman_bold"/>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,25 +1,89 @@
 package com.example.pet;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FragmentCommunity extends Fragment {
+
+    private RecyclerView recyclerView;
+    private BoardListAdapter adapter;
+    private List<BoardItem> boardItemList;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private ImageButton writeBtn;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_community, container, false);
+        View view = inflater.inflate(R.layout.fragment_community, container, false);
+
+        recyclerView = view.findViewById(R.id.boardList_recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+
+        writeBtn = view.findViewById(R.id.writeBtn);
+
+        // 게시판 아이템 데이터를 초기화하고 어댑터에 연결
+        boardItemList = new ArrayList<>();
+        adapter = new BoardListAdapter(boardItemList);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
+
+        writeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), BoardRegister.class);
+                startActivity(intent);
+            }
+        });
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Log.e("SWIPE","SWIPE!");
+                // 새로고침 작업 수행
+                initializeBoardItems();
+            }
+        });
+
+        // 기존 데이터 로드
+        initializeBoardItems();
+
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initializeBoardItems();
+    }
+
+    // 아이템 불러오기
+    private void initializeBoardItems(){
+
+    }
+
+
 }

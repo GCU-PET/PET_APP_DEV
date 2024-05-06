@@ -45,7 +45,6 @@ public class BoardListFragment extends Fragment implements OnTaskCompleted{
     private SwipeRefreshLayout swipeRefreshLayout;
     private Button writeBtn;
 
-    //private static final int REQUEST_IMAGE_UPLOAD = 1;
 
     @Override
     public void onTaskCompleted(String result) {
@@ -128,15 +127,15 @@ public class BoardListFragment extends Fragment implements OnTaskCompleted{
         recyclerView.setAdapter(adapter);
 
         //게시글 등록 버튼
-        writeBtn = view.findViewById(R.id.writeBtn);
-        writeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), BoardRegister.class);
-                startActivity(intent);
-                //startActivityForResult(intent, REQUEST_IMAGE_UPLOAD);
-            }
-        });
+//        writeBtn = view.findViewById(R.id.writeBtn);
+//        writeBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity(), BoardRegister.class);
+//                startActivity(intent);
+//                //startActivityForResult(intent, REQUEST_IMAGE_UPLOAD);
+//            }
+//        });
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
