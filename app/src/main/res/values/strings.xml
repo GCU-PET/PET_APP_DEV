@@ -6,6 +6,8 @@
     <string name="current_state">Current State</string>
     <string name="state_analysis">Analysis of \nRecent Behavior</string>
     <string name="abnormal_analysis">Abnormal behavior detection analysis</string>
+    <string name="time_line">Time Line</string>
+    <string name="date_select">Date Select</string>
 
     <string name="happy_state">I am HAPPY now!</string>
 
