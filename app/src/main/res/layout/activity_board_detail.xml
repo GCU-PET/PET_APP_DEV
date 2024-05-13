@@ -26,7 +26,7 @@
                 android:hint="Title"
                 android:layout_margin="10dp"
                 android:padding="15dp"
-                android:background="@drawable/round_rectangle"
+                android:background="@drawable/yellow_rectangle"
                 android:fontFamily="@font/hanuman_bold"/>
 
 
@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_margin="10dp"
-                android:background="@drawable/round_rectangle">
+                android:background="@drawable/yellow_rectangle">
 
                 <EditText
                     android:id="@+id/board_content_input"
@@ -50,6 +50,8 @@
 
                 <ImageView
                     android:id="@+id/board_detail_image"
+                    android:background="@drawable/green_rectangle"
+                    android:backgroundTint="@color/Bittersweet"
                     android:layout_width="180dp"
                     android:layout_height="180dp"
                     android:layout_margin="10dp"

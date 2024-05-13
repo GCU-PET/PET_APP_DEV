@@ -5,146 +5,50 @@
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/RobinEggBlue">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical"
-        android:background="@drawable/background_ellipse">
+        android:orientation="vertical">
 
-<!--        이미지 추가 버튼-->
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:background="@drawable/round_yellow_border"
+        <ImageView
+            android:id="@+id/image_pet"
+            android:layout_width="154dp"
+            android:layout_height="154dp"
+            android:src="@drawable/red_ellipse"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-
-            <ImageView
-                android:id="@+id/image_pet"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-
-                android:background="@color/white"
-                android:scaleType="fitCenter"
-                android:src="@drawable/icon_add"
-
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/round_blue_border"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
-        android:orientation="vertical">
+        android:layout_weight="2.5"
+        android:orientation="vertical"
+        android:background="@drawable/home_scrollview_background">
 
-        <LinearLayout
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/date_tab"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_margin="10dp">
+            android:layout_height="65dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="5dp"
 
-            <LinearLayout
-                android:id="@+id/homeLayout_currentState"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_margin="10dp"
-                android:layout_weight="1">
+            android:theme="@style/tab_style"
+            app:tabSelectedTextColor="@color/Bittersweet"
+            app:tabIndicatorColor="@color/Ivory"/>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/current_state"
-                    android:textAppearance="@style/current_state"
-                    android:fontFamily="@font/hanuman_regular"/>
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/timeline_sliderViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
-                <View
-                    android:id="@+id/statisticRectangle1"
-                    android:layout_width="240dp"
-                    android:layout_height="120dp"
-                    android:background="#D9D9D9"
-                    android:layout_margin="5dp"
-                    android:layout_gravity="center"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/homeLayout_stateStatistic"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_margin="10dp"
-                android:layout_weight="1">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/state_analysis"
-                    android:textAppearance="@style/state_analysis"
-                    android:fontFamily="@font/hanuman_regular"/>
-
-                <View
-                    android:id="@+id/statisticRectangle2"
-                    android:layout_width="240dp"
-                    android:layout_height="120dp"
-                    android:background="#D9D9D9"
-                    android:layout_margin="5dp"
-                    android:layout_gravity="center"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/homeLayout_abnormalStatistic"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_margin="10dp"
-                android:layout_weight="1">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/abnormal_analysis"
-                    android:textAppearance="@style/abnormal_analysis"
-                    android:fontFamily="@font/hanuman_regular"/>
-
-                <View
-                    android:id="@+id/statisticRectangle3"
-                    android:layout_width="240dp"
-                    android:layout_height="120dp"
-                    android:background="#D9D9D9"
-                    android:layout_margin="5dp"
-                    android:layout_gravity="center"
-                    />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </ScrollView>
+    </LinearLayout>
 
 </LinearLayout>

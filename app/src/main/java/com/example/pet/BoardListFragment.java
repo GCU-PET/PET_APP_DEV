@@ -71,7 +71,7 @@ public class BoardListFragment extends Fragment implements OnTaskCompleted{
                         String formattedDate = convertDateFormat(date);
 
                         // BoardItem 객체 생성
-                        BoardItem boardItem = new BoardItem(title, formattedDate, UserID, content);
+                        BoardItem boardItem = new BoardItem(title, formattedDate, UserID);
 
                         // RecyclerView에 추가
                         boardItemList.add(0, boardItem);

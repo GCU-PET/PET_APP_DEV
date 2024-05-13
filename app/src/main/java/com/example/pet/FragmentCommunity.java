@@ -1,5 +1,6 @@
 package com.example.pet;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -85,5 +86,20 @@ public class FragmentCommunity extends Fragment {
 
     }
 
-
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == REQEUST_BOARD_REGISTER && resultCode == Activity.RESULT_OK){
+//            // 게시글 작성 액티비티에서 작성된 내용을 받아옴
+//            if (data != null) {
+//                String title = data.getStringExtra("title");
+//                String content = data.getStringExtra("content");
+//
+////                // 받아온 내용을 리스트에 추가
+////                BoardItem newBoardItem = new BoardItem(title, content);
+////                boardItemList.add(newBoardItem);
+////                adapter.notifyItemInserted(boardItemList.size() - 1);
+//            }
+//        }
+//    }
 }

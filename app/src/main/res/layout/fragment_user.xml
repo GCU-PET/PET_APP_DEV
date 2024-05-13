@@ -15,7 +15,6 @@
             android:id="@+id/userInfo_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/round_rectangle"
             android:layout_margin="15dp"
             android:padding="10dp"
             android:orientation="vertical">
@@ -109,8 +108,7 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="140dp"
-                        android:layout_height="140dp"
-                        android:background="@drawable/round_yellow_border">
+                        android:layout_height="140dp">
 
 
                         <ImageView
@@ -131,7 +129,6 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/round_yellow_border"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -150,7 +147,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/round_rectangle"
             android:layout_margin="15dp">
 
             <TextView

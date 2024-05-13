@@ -33,7 +33,7 @@ public class BoardListAdapter extends RecyclerView.Adapter<BoardListAdapter.Boar
 
         //holder.imageView.setImageURI(item.getImageUri());
         holder.titleTextView.setText(item.getTitle());
-        holder.contentTextView.setText(item.getContent());
+        //holder.contentTextView.setText(item.getContent());
         holder.IDTextView.setText(item.getID());
         holder.DateTextView.setText(item.getDate());
     }
@@ -50,7 +50,7 @@ public class BoardListAdapter extends RecyclerView.Adapter<BoardListAdapter.Boar
         public BoardItemViewHolder(View view) {
             super(view);
             titleTextView = view.findViewById(R.id.itemTitleTextView);
-            contentTextView = view.findViewById(R.id.itemContentTextView);
+            //contentTextView = view.findViewById(R.id.itemContentTextView);
             imageView = view.findViewById(R.id.itemImageView);
 
             IDTextView = view.findViewById(R.id.itemUserIDTextView);

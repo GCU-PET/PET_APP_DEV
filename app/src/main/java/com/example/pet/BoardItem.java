@@ -4,22 +4,27 @@ import android.net.Uri;
 
 
 public class BoardItem {
-
     private String title;
     private String date;
     private String userID;
-    private String content;
     private Uri imageUri;
 
 //    (String title, String date, String userID, String content, Uri imageUri)
 
-    public BoardItem(String title, String date, String userID, String content) {
+    public BoardItem(String title, String date, String userID, Uri imageUri) {
         this.title = title;
         this.date = date;
         this.userID = userID;
-        this.content = content;
         this.imageUri = imageUri;
     }
+
+    // 이미지가 없을 때
+    public BoardItem(String title, String date, String userID) {
+        this.title = title;
+        this.date = date;
+        this.userID = userID;
+    }
+
 
     public String getTitle() {
         return title;
@@ -28,12 +33,6 @@ public class BoardItem {
     public void setTitle(String title) {
         this.title = title;
     }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) { this.content = content; }
 
     public Uri getImageUri() {
         return imageUri;
@@ -47,7 +46,7 @@ public class BoardItem {
     public void setUserID(String userID) { this.userID = userID; }
 
     public String getDate() { return date; }
-    public void setDate(String date ) { this.date = date; }
+    public void setDate(String date) { this.date = date; }
 
 
 //    public static BoardItem createWithoutImage(String title, String content) {

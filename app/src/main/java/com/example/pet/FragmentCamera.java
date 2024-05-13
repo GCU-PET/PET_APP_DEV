@@ -29,7 +29,22 @@ public class FragmentCamera extends Fragment {
 
         WebView webView = view.findViewById(R.id.camera_webView);
         WebSettings webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(true); // allow the js
+
+        // URL 컨텍스트 내에서 자바스크립트 접근가능여부
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+
+        webSettings.setAllowFileAccess(true);
+        // 파일 기반 XSS 취약성 문제 해결 (구글지적)
+        // true -> false 변경
+        //1. WebView에 위험한 설정이 포함되지 않도록 설정
+        webSettings.setAllowFileAccessFromFileURLs(true);
+        // 다른 도메인의경우에도 허용하는가
+        webSettings.setAllowUniversalAccessFromFileURLs(true);
+        // 네트워크를 통한 이미지 리소스 로딩여부 결정 (false -> 이미지로딩 금지)
+
+        // 웹뷰에서 웹페이지의 카메라 및 마이크 접근을 허용 *****
+        webSettings.setMediaPlaybackRequiresUserGesture(false);
 
         webView.setWebViewClient(new WebViewClient() {
             @Override
@@ -48,8 +63,8 @@ public class FragmentCamera extends Fragment {
             }
         });
 
-        webView.loadUrl("https://0373-218-153-129-75.ngrok-free.app"); //링크 삽입.
-
+        webView.loadUrl("https://www.feople-eeho.com"); //링크 삽입.
+        //webView.setWebChromeClient(new WebChromeClient());
         return view;
     }
 

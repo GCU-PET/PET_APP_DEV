@@ -58,19 +58,19 @@ public class MainActivity extends AppCompatActivity {
         // TabLayout에 OnTabSelectedListener 등록
         tabLayout.addOnTabSelectedListener(new tabSelectedListener());
 
-        // 초기 탭 색상 설정
-        for (int i = 0; i < tabLayout.getTabCount(); i++) {
-            TabLayout.Tab tab = tabLayout.getTabAt(i);
-            if (tab != null) {
-                if (i == tabLayout.getSelectedTabPosition()) {
-                    // 선택된 탭의 색상 설정
-                    tab.getIcon().setColorFilter(ContextCompat.getColor(tabLayout.getContext(), R.color.Ivory), PorterDuff.Mode.SRC_IN);
-                } else {
-                    // 선택되지 않은 탭의 색상 설정
-                    tab.getIcon().setColorFilter(ContextCompat.getColor(tabLayout.getContext(), R.color.RobinEggBlue), PorterDuff.Mode.SRC_IN);
-                }
-            }
-        }
+//        // 초기 탭 색상 설정
+//        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+//            TabLayout.Tab tab = tabLayout.getTabAt(i);
+//            if (tab != null) {
+//                if (i == tabLayout.getSelectedTabPosition()) {
+//                    // 선택된 탭의 색상 설정
+//                    tab.getIcon().setColorFilter(ContextCompat.getColor(tabLayout.getContext(), R.color.Ivory), PorterDuff.Mode.SRC_IN);
+//                } else {
+//                    // 선택되지 않은 탭의 색상 설정
+//                    tab.getIcon().setColorFilter(ContextCompat.getColor(tabLayout.getContext(), R.color.RobinEggBlue), PorterDuff.Mode.SRC_IN);
+//                }
+//            }
+//        }
 
         // 홈 화면을 초기 화면으로 설정
         sliderViewPager.setCurrentItem(1);

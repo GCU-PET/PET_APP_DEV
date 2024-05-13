@@ -12,7 +12,8 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="4"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center">
 
         <!--    게시판 게시글 제목-->
         <TextView
@@ -27,7 +28,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/itemDateTextView"
@@ -53,15 +55,15 @@
 
 
         <!--    게시판 게시글의 내용 일부-->
-        <TextView
-            android:id="@+id/itemContentTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Content"
-            android:textSize="20dp"
-            android:layout_margin="5dp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/hanuman_regular"/>
+<!--        <TextView-->
+<!--            android:id="@+id/itemContentTextView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Content"-->
+<!--            android:textSize="20dp"-->
+<!--            android:layout_margin="5dp"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:fontFamily="@font/hanuman_regular"/>-->
 
     </androidx.appcompat.widget.LinearLayoutCompat>
     <ImageView

@@ -92,68 +92,67 @@ public class BoardRegister extends AppCompatActivity implements OnTaskCompleted{
         registBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //uploadPost();
-
-                String title = titleInput.getText().toString();
-                String content = contentInput.getText().toString();
-
-                RequestBody fileBody = RequestBody.create(MediaType.parse("image/*"), photoFile);
-                MultipartBody.Part profile = MultipartBody.Part.createFormData("profile", photoFile.getName(), fileBody);
-
-                JSONObject jsonParam = new JSONObject();
-                try {
-                    jsonParam.put("title", title); //
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-                try {
-                    jsonParam.put("content",content); //
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-                try {
-                    jsonParam.put("profile",profile);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-
-                // 파일이 이미 존재하는지 확인
-                File file = new File(getFilesDir(), "token.txt");
-                String token = "";
-                // 파일 존재 여부 확인
-                if (file.exists()) {
-                    // 파일이 존재할 경우의 처리
-                    try {
-                        // 파일 읽기
-                        BufferedReader reader = new BufferedReader(new FileReader(file));
-                        StringBuilder stringBuilder = new StringBuilder();
-                        String line;
-
-                        while ((line = reader.readLine()) != null) {
-                            stringBuilder.append(line);
-                        }
-
-                        reader.close();
-                        // 읽은 내용 출력 또는 다른 처리 수행
-                        String fileContent = stringBuilder.toString();
-                        token = fileContent;
-                        Log.i("File Content - Token: ", fileContent);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                Gson gson = new Gson();
-                List<String> listA = new ArrayList<String>();
-                listA.add(String.valueOf(jsonParam));
-                listA.add("POST");
-                listA.add("api/board/post/image"); //
-                listA.add(token);
-
-                String jsonWifiData = gson.toJson(listA); // converting wifiData to JSON format
-
-                new SendDataTask(BoardRegister.this).execute(jsonWifiData);
-
+                    uploadPost();
+//
+//                String title = titleInput.getText().toString();
+//                String content = contentInput.getText().toString();
+//
+//                RequestBody fileBody = RequestBody.create(MediaType.parse("image/*"), photoFile);
+//                MultipartBody.Part profile = MultipartBody.Part.createFormData("profile", photoFile.getName(), fileBody);
+//
+//                JSONObject jsonParam = new JSONObject();
+//                try {
+//                    jsonParam.put("title", title); //
+//                } catch (JSONException e) {
+//                    throw new RuntimeException(e);
+//                }
+//                try {
+//                    jsonParam.put("content",content); //
+//                } catch (JSONException e) {
+//                    throw new RuntimeException(e);
+//                }
+//                try {
+//                    jsonParam.put("profile",profile);
+//                } catch (JSONException e) {
+//                    throw new RuntimeException(e);
+//                }
+//
+//                // 파일이 이미 존재하는지 확인
+//                File file = new File(getFilesDir(), "token.txt");
+//                String token = "";
+//                // 파일 존재 여부 확인
+//                if (file.exists()) {
+//                    // 파일이 존재할 경우의 처리
+//                    try {
+//                        // 파일 읽기
+//                        BufferedReader reader = new BufferedReader(new FileReader(file));
+//                        StringBuilder stringBuilder = new StringBuilder();
+//                        String line;
+//
+//                        while ((line = reader.readLine()) != null) {
+//                            stringBuilder.append(line);
+//                        }
+//
+//                        reader.close();
+//                        // 읽은 내용 출력 또는 다른 처리 수행
+//                        String fileContent = stringBuilder.toString();
+//                        token = fileContent;
+//                        Log.i("File Content - Token: ", fileContent);
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//
+//                Gson gson = new Gson();
+//                List<String> listA = new ArrayList<String>();
+//                listA.add(String.valueOf(jsonParam));
+//                listA.add("POST");
+//                listA.add("api/board/post/image"); //
+//                listA.add(token);
+//
+//                String jsonWifiData = gson.toJson(listA); // converting wifiData to JSON format
+//
+//                new SendDataTask(BoardRegister.this).execute(jsonWifiData);
             }
         });
     }
@@ -166,31 +165,18 @@ public class BoardRegister extends AppCompatActivity implements OnTaskCompleted{
     }
 
     private void uploadPost() {
-        if (addedImage.getDrawable() != null) {
-            String title = titleInput.getText().toString();
-            String content = contentInput.getText().toString();
-            Uri imageUri = getImageUri(addedImage);
+        String title = titleInput.getText().toString();
+        String content = contentInput.getText().toString();
+        String date = "9999-99-99";
+        Uri imageUri = getImageUri(addedImage);
 
-            if (imageUri != null) {  // 이미지 URI가 null인 경우 처리
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("title", title);
-                resultIntent.putExtra("content", content);
-                resultIntent.putExtra("imageUri", imageUri.toString());
-                setResult(RESULT_OK, resultIntent);
+        if (imageUri != null) {
 
-                finish();
-            } else {
-                Toast.makeText(this, "Failed to upload image.", Toast.LENGTH_SHORT).show();
-                finish();
-            }
+
+            finish();
+
         }else {
-            String title = titleInput.getText().toString();
-            String content = contentInput.getText().toString();
 
-            Intent resultIntent = new Intent();
-            resultIntent.putExtra("title", title);
-            resultIntent.putExtra("content", content);
-            setResult(RESULT_OK, resultIntent);
 
             finish();
         }

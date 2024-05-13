@@ -28,7 +28,7 @@
             android:id="@+id/writeBtn"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:src="@drawable/icon_edit"
+            android:background="@drawable/icon_edit"
             android:backgroundTint="@color/RobinEggBlue"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
