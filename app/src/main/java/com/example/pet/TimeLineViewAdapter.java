@@ -42,7 +42,7 @@ public class TimeLineViewAdapter extends RecyclerView.Adapter<TimeLineViewAdapte
 
         Context context = holder.itemView.getContext();
 
-        holder.date.setText(timeLineModel.getDate());
+        holder.date.setText(timeLineModel.getHour());
         //holder.timeline.setMarker(ContextCompat.getDrawable(context, R.drawable.icon_edit));
     }
 
@@ -67,6 +67,15 @@ public class TimeLineViewAdapter extends RecyclerView.Adapter<TimeLineViewAdapte
             this.date = (TextView) itemView.findViewById(R.id.timeline_date);
             this.image = (ImageView) itemView.findViewById(R.id.timeline_image);
             this.timeline = (TimelineView) itemView.findViewById(R.id.timeline);
+
+            // TimelineView 속성 설정
+            timeline.setMarker(ContextCompat.getDrawable(context, R.drawable.red_ellipse));
+            timeline.setMarkerSize(50); // markerSize 변경
+            timeline.setLineWidth(8); // lineWidth 변경
+            timeline.setStartLineColor(ContextCompat.getColor(itemView.getContext(), R.color.Bittersweet), 0); // startLineColor 변경
+            timeline.setEndLineColor(ContextCompat.getColor(itemView.getContext(), R.color.Bittersweet), 0); // endLineColor 변경
+            timeline.setLineStyle(0);
+            // viewType 0 : 위아래 1: 아래 2: 위
         }
 
 //        public TimelineViewHolder(@NonNull View itemView, int viewType) {

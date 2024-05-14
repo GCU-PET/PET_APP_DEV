@@ -44,7 +44,6 @@ public class FragmentTimeLine extends Fragment {
         mDataList.add(new TimeLineModel("8:00"));
         mDataList.add(new TimeLineModel("9:00"));
         mDataList.add(new TimeLineModel("10:00"));
-
     }
 
 

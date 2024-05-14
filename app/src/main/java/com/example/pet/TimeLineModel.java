@@ -3,12 +3,12 @@ package com.example.pet;
 import android.graphics.Bitmap;
 
 public class TimeLineModel{
-    private String date;
+    private String hour;
     private Bitmap image;
     private boolean status;
 
-    public TimeLineModel(String date, Bitmap image) {
-        this.date = date;
+    public TimeLineModel(String hour, Bitmap image) {
+        this.hour = hour;
         this.image = image;
         if (image != null){
             this.status = true;
@@ -17,8 +17,8 @@ public class TimeLineModel{
         }
     }
 
-    public TimeLineModel(String date){
-        this.date = date;
+    public TimeLineModel(String hour){
+        this.hour = hour;
         this.image = null;
         this.status = false;
     }
@@ -31,12 +31,12 @@ public class TimeLineModel{
         this.image = image;
     }
 
-    public String getDate() {
-        return date;
+    public String getHour() {
+        return hour;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setHour(String hour) {
+        this.hour = hour;
     }
 
     public boolean getStatus() {
