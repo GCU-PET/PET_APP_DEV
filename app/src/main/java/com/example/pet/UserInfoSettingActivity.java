@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 
@@ -26,18 +27,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class UserInfoSettingActivity extends AppCompatActivity implements OnTaskCompleted {
 
-    private ImageButton imageAddButton;
+    private CircleImageView petProfile;
     private static final int REQUEST_CODE = 1;
 
     private Button submitBtn;
-    EditText userName;
-    EditText userID;
-    EditText userPassword;
+    //EditText userName;
+    TextView userID;
+    TextView userPassword;
 
     EditText petName;
-    EditText petAge;
+    //EditText petAge;
 
     @Override
     public void onTaskCompleted(String result) {
@@ -54,7 +57,6 @@ public class UserInfoSettingActivity extends AppCompatActivity implements OnTask
 
         submitBtn = findViewById(R.id.userInfo_submit);
 
-        userName = findViewById(R.id.user_name);
         userID = findViewById(R.id.user_id);
         userPassword = findViewById(R.id.user_password);
 
@@ -64,19 +66,18 @@ public class UserInfoSettingActivity extends AppCompatActivity implements OnTask
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String user_name = userName.getText().toString();
                 String user_ID = userID.getText().toString();
                 String user_password = userPassword.getText().toString();
 
                 String pet_name = petName.getText().toString();
-                String pet_age = petAge.getText().toString();
+                //String pet_age = petAge.getText().toString();
 
                 JSONObject jsonParam = new JSONObject();
                 try {
-                    jsonParam.put("userName", user_name);
+                    //jsonParam.put("userName", user_name);
                     jsonParam.put("PW", user_password);
                     jsonParam.put("petName", pet_name);
-                    jsonParam.put("petAge", pet_age);
+                    //jsonParam.put("petAge", pet_age);
 
                     // token 불러오기
                     // 파일이 이미 존재하는지 확인
@@ -123,17 +124,9 @@ public class UserInfoSettingActivity extends AppCompatActivity implements OnTask
         });
 
 
-        imageAddButton = findViewById(R.id.info_setting_add_image_button);
+        petProfile = findViewById(R.id.info_setting_profile);
 
-        imageAddButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(Intent.createChooser(intent, "Select Image"), REQUEST_CODE);
-            }
-        });
-
-        imageAddButton.setOnClickListener(new View.OnClickListener() {
+        petProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // pickImage 메소드
@@ -156,8 +149,8 @@ public class UserInfoSettingActivity extends AppCompatActivity implements OnTask
                     Bitmap bitmap = null;
                     try {
                         bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-                        imageAddButton.setImageBitmap(bitmap);
-                        imageAddButton.setVisibility(View.VISIBLE);
+                        petProfile.setImageBitmap(bitmap);
+                        petProfile.setVisibility(View.VISIBLE);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

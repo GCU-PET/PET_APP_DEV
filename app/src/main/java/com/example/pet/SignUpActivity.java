@@ -1,11 +1,15 @@
 package com.example.pet;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Paint;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -14,12 +18,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -30,24 +36,27 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class SignUpActivity extends AppCompatActivity implements OnTaskCompleted{
 
-    // 중복체크 결과 확인 변수
-    Boolean checkingDup = false;
-    // 중복체크 여부 확인 변수
-    Boolean dupCheck = false;
-    // 중복 여부 확인 변수
-    Boolean isDup = true;
-
-    private boolean isIdValid = false;
-    private boolean isPWValid = false;
-
+    private CircleImageView profile;
+    private EditText petName;
+    private EditText userID;
+    private EditText password;
     private Button signupBtn;
+    private Button dupliBtn;
+
+    private boolean isUserIdValid = false;
+    private boolean isReadyToCheckDuplicate = false;
+    private boolean resultForCheckingDup = true;
+
+    private static final int REQUEST_CODE = 1;
 
     @Override
     public void onTaskCompleted(String result) {
         // 중복체크 결과일 때
-        if(checkingDup){
+        if(resultForCheckingDup){
             try{
                 JSONObject jsonResult = new JSONObject(result);
                 boolean enable = jsonResult.getBoolean("result");
@@ -55,12 +64,12 @@ public class SignUpActivity extends AppCompatActivity implements OnTaskCompleted
 
                 if(enable){
                     Toast.makeText(this, "중복이 아닙니다!", Toast.LENGTH_SHORT).show();
-                    isDup = false;
+                    isUserIdValid = true;
                 }else{
                     Toast.makeText(this, "중복입니다!", Toast.LENGTH_SHORT).show();
-                    isDup = true;
+                    isUserIdValid = false;
                 }
-                checkingDup = false;
+                resultForCheckingDup = false;
             } catch (JSONException e) {
                 Log.e("JSON Parsing Error", "Error parsing JSON result", e);
             }
@@ -82,9 +91,10 @@ public class SignUpActivity extends AppCompatActivity implements OnTaskCompleted
                     Intent intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
                     finish();
+
                 }else{
                     //로그인 실패
-                    Toast.makeText(SignUpActivity.this, "회원가입 실패!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpActivity.this, "회원가입에 실패했습니다.", Toast.LENGTH_SHORT).show();
                 }
 
             } catch (JSONException e) {
@@ -93,74 +103,80 @@ public class SignUpActivity extends AppCompatActivity implements OnTaskCompleted
         }
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        ImageButton profile = findViewById(R.id.signup_profile);
-        EditText petName = findViewById(R.id.signup_petname);
-
-        /// 반려동물 정보 저장.
-
-
+        profile = findViewById(R.id.signup_profile);
+        petName = findViewById(R.id.signup_petname);
+        userID = findViewById(R.id.signup_id);
+        password = findViewById(R.id.signup_password);
 
         signupBtn = findViewById(R.id.signupBtn);
-        signupBtn.setEnabled(false);
+        dupliBtn = findViewById(R.id.dupliBtn);
 
-        EditText regisID = findViewById(R.id.regis_id);
-        EditText regisPW = findViewById(R.id.regis_password);
-        Button dupliBtn = findViewById(R.id.dupliBtn);
+        signupBtn.setEnabled(false);
         dupliBtn.setEnabled(false);
 
-        regisID.addTextChangedListener(new TextWatcher() {
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
+                startActivityForResult(Intent.createChooser(intent, "Select Image"), REQUEST_CODE);
+            }
+        });
+
+        TextWatcher textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String id = s.toString().trim();
-                isIdValid = !id.isEmpty();
-                if (!isIdValid) {
-                    dupliBtn.setEnabled(false);
-                } else{
-                    dupliBtn.setEnabled(true);
+            public void afterTextChanged(Editable s) {
+                checkFieldsForValidValues();
+            }
+        };
+
+        petName.addTextChangedListener(textWatcher);
+        password.addTextChangedListener(textWatcher);
+
+        userID.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(!userID.getText().toString().trim().isEmpty()){
+                    isReadyToCheckDuplicate = true;
                 }
-                // 아이디를 변경하면 다시 중복확인을 해야하므로 중복확인 상태를 false로 설정
-                dupCheck = false;
-                updateButtonState();
-            }
+                else{
+                    isReadyToCheckDuplicate = false;
+                }
 
-            @Override
-            public void afterTextChanged(Editable s) { }
+                dupliBtn.setEnabled(isReadyToCheckDuplicate);
+
+                resultForCheckingDup = true;
+                isUserIdValid = false;
+                signupBtn.setEnabled(false);
+            }
         });
 
-        regisPW.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String password = s.toString().trim();
-                isPWValid = !password.isEmpty();
-                updateButtonState();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) { }
-        });
-
-        // 중복확인
         dupliBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dupCheck = true;
-                checkingDup = true;
 
-                //regisBtn.setEnabled(true);
+                isUserIdValid = true;
+
                 JSONObject jsonParam = new JSONObject();
                 try {
-                    jsonParam.put("ID",regisID.getText().toString());
+                    jsonParam.put("ID",userID.getText().toString());
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
@@ -175,16 +191,15 @@ public class SignUpActivity extends AppCompatActivity implements OnTaskCompleted
 
                 new SendDataTask(SignUpActivity.this).execute(jsonWifiData);
 
-                // regisID와 regisPW 중 하나라도 공백이면 또는 중복검사를 하지 않았으면 regisBtn 비활성화
-                updateButtonState();
+                checkFieldsForValidValues();
             }
         });
 
         signupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String id = regisID.getText().toString();
-                String pw = regisPW.getText().toString();
+                String id = userID.getText().toString();
+                String pw = password.getText().toString();
 
                 JSONObject jsonParam = new JSONObject();
                 try {
@@ -205,15 +220,20 @@ public class SignUpActivity extends AppCompatActivity implements OnTaskCompleted
                 new SendDataTask(SignUpActivity.this).execute(jsonWifiData);
             }
         });
+
+
     }
 
-    private void updateButtonState() {
-        if (isIdValid && isPWValid && dupCheck && !isDup) {
-            Toast.makeText(this, "Sign Up Enable!", Toast.LENGTH_SHORT).show();
-            signupBtn.setEnabled(true);
-        } else {
-            signupBtn.setEnabled(false);
-        }
+    private void checkFieldsForValidValues() {
+        boolean isPetNameFilled = !petName.getText().toString().trim().isEmpty();
+        //boolean isUserIdFilled = !userID.getText().toString().trim().isEmpty();
+        boolean isPasswordFilled = !password.getText().toString().trim().isEmpty();
+
+        signupBtn.setEnabled(isPetNameFilled && isUserIdValid && isPasswordFilled);
+
+//        petNameError.setVisibility(isPetNameFilled ? View.GONE : View.VISIBLE);
+//        userIdError.setVisibility(isUserIdFilled ? View.GONE : View.VISIBLE);
+//        passwordError.setVisibility(isPasswordFilled ? View.GONE : View.VISIBLE);
     }
 
     private void saveTokenToFile(String token) {
@@ -256,6 +276,28 @@ public class SignUpActivity extends AppCompatActivity implements OnTaskCompleted
 
         } catch (IOException e) {
             Log.e("File Save Error", "Error saving token to file", e);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+            if (data != null) {
+                Uri imageUri = data.getData();
+                if (imageUri != null) {
+                    Bitmap bitmap;
+                    try {
+                        bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                        profile.setImageBitmap(bitmap);
+                        //imageAddButton.setVisibility(View.GONE);
+                        //profile.setVisibility(View.VISIBLE);
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
         }
     }
 

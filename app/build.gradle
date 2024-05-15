@@ -52,5 +52,7 @@ dependencies {
 
     // 타임라인 오픈소스
     implementation 'com.github.vipulasri:timelineview:1.1.5'
+    //이미지 동그랗게 자르는 오픈소스
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
 }

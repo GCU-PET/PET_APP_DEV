@@ -26,15 +26,14 @@
                 android:layout_gravity="center_horizontal">
 
 
-                <ImageButton
-                    android:id="@+id/info_setting_add_image_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/info_setting_profile"
+                    android:layout_width="196dp"
+                    android:layout_height="196dp"
                     android:layout_margin="5dp"
 
-                    android:background="@drawable/red_ellipse"
-                    android:scaleType="fitCenter"
                     android:src="@drawable/red_ellipse"
+                    android:background="@color/Ivory"
 
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -69,7 +68,7 @@
                 android:background="@drawable/yellow_rectangle"
                 android:textAppearance="@style/info_input"
                 android:fontFamily="@font/hanuman_regular"
-                android:paddingLeft="14dp"
+                android:paddingStart="14dp"
                 />
 
         </LinearLayout>
@@ -84,41 +83,41 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="User Info"
+                android:text="User ID"
                 android:textAppearance="@style/info_text"
                 android:fontFamily="@font/hanuman_regular"
                 android:layout_margin="10dp"
                 />
 
-            <EditText
-                android:id="@+id/user_name"
+            <TextView
+                android:id="@+id/user_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/user_name"
+                android:hint="@string/user_id"
                 android:paddingLeft="15dp"
                 android:textAppearance="@style/info_input"
                 android:fontFamily="@font/hanuman_regular"
                 android:background="@drawable/yellow_rectangle"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="E-mail (ID)"
-                android:textAppearance="@style/info_text"
-                android:fontFamily="@font/hanuman_regular"
-                android:layout_margin="10dp"
-                />
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:hint="E-mail (ID)"-->
+<!--                android:textAppearance="@style/info_text"-->
+<!--                android:fontFamily="@font/hanuman_regular"-->
+<!--                android:layout_margin="10dp"-->
+<!--                />-->
 
-            <EditText
-                android:id="@+id/user_id"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/user_id"
-                android:textAppearance="@style/info_input"
-                android:fontFamily="@font/hanuman_regular"
-                android:paddingLeft="15dp"
-                android:background="@drawable/yellow_rectangle"
-                />
+<!--            <EditText-->
+<!--                android:id="@+id/user_id"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:hint="@string/user_id"-->
+<!--                android:textAppearance="@style/info_input"-->
+<!--                android:fontFamily="@font/hanuman_regular"-->
+<!--                android:paddingLeft="15dp"-->
+<!--                android:background="@drawable/yellow_rectangle"-->
+<!--                />-->
 
             <TextView
                 android:layout_width="wrap_content"
@@ -129,7 +128,7 @@
                 android:layout_margin="10dp"
                 />
 
-            <EditText
+            <TextView
                 android:id="@+id/user_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -140,6 +139,13 @@
                 android:background="@drawable/yellow_rectangle"
                 />
 
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="User Infromation can not be modified."-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:layout_gravity="center"/>-->
+
         </LinearLayout>
 
         <Button
@@ -148,10 +154,10 @@
             android:layout_height="wrap_content"
             android:background="@drawable/button_background"
             android:text="Save Change"
-            android:textSize="20dp"
+            android:textSize="15sp"
             android:fontFamily="@font/hanuman_regular"
             android:layout_gravity="center"
-            android:layout_margin="10dp"/>
+            android:layout_margin="20dp"/>
 
     </LinearLayout>
 

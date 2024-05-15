@@ -9,12 +9,8 @@
 
     <string name="happy_state">I am HAPPY now!</string>
 
-    <string name="user_name">
-        User Name
-    </string>
-
     <string name="user_id">
-        abcd1234@gmail.com
+        User ID
     </string>
 
     <string name="user_password">
