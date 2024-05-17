@@ -10,7 +10,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:fillViewport="true">
 
@@ -19,8 +19,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/board_title_input"
+            <TextView
+                android:id="@+id/board_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Title"
@@ -28,6 +28,41 @@
                 android:padding="15dp"
                 android:background="@drawable/yellow_rectangle"
                 android:fontFamily="@font/hanuman_bold"/>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="25dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text = "ID"
+                    android:fontFamily="@font/hanuman_regular"/>
+
+                <TextView
+                    android:id="@+id/board_userID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text = "UserID"
+                    android:fontFamily="@font/hanuman_regular"
+                    android:layout_marginHorizontal="5dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text = "Date"
+                    android:fontFamily="@font/hanuman_regular"/>
+
+                <TextView
+                    android:id="@+id/board_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text = "Date"
+                    android:fontFamily="@font/hanuman_regular"
+                    android:layout_marginHorizontal="5dp"/>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
 
             <LinearLayout
@@ -37,8 +72,8 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/yellow_rectangle">
 
-                <EditText
-                    android:id="@+id/board_content_input"
+                <TextView
+                    android:id="@+id/board_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -50,8 +85,8 @@
 
                 <ImageView
                     android:id="@+id/board_detail_image"
-                    android:background="@drawable/green_rectangle"
-                    android:backgroundTint="@color/Bittersweet"
+                    android:src="@drawable/red_rectangle"
+                    android:bakground="@color/Bittersweet"
                     android:layout_width="180dp"
                     android:layout_height="180dp"
                     android:layout_margin="10dp"

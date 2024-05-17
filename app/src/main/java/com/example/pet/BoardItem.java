@@ -5,17 +5,19 @@ import android.net.Uri;
 
 public class BoardItem {
     private String title;
+    private String content;
     private String date;
     private String userID;
-    private Uri imageUri;
+    private String imageUrl;
 
 //    (String title, String date, String userID, String content, Uri imageUri)
 
-    public BoardItem(String title, String date, String userID, Uri imageUri) {
+    public BoardItem(String title,String content, String date, String userID, String imageUrl) {
         this.title = title;
+        this.content = content;
         this.date = date;
         this.userID = userID;
-        this.imageUri = imageUri;
+        this.imageUrl = imageUrl;
     }
 
     // 이미지가 없을 때
@@ -33,13 +35,15 @@ public class BoardItem {
     public void setTitle(String title) {
         this.title = title;
     }
+    public String getContent() {return content;}
+    public void setContent(String content) {this.content = content;}
 
-    public Uri getImageUri() {
-        return imageUri;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImageUri(Uri imageUri) {
-        this.imageUri = imageUri;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getID() { return userID; }

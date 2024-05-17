@@ -1,5 +1,7 @@
 package com.example.pet;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +22,10 @@ import android.widget.ImageButton;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FragmentCommunity extends Fragment {
 
@@ -43,7 +49,7 @@ public class FragmentCommunity extends Fragment {
 
         // 게시판 아이템 데이터를 초기화하고 어댑터에 연결
         boardItemList = new ArrayList<>();
-        adapter = new BoardListAdapter(boardItemList);
+        adapter = new BoardListAdapter(boardItemList, getContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
@@ -58,7 +64,7 @@ public class FragmentCommunity extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Log.e("SWIPE","SWIPE!");
+                Log.e("SWIPE","새로고침!");
                 // 새로고침 작업 수행
                 initializeBoardItems();
             }
@@ -75,15 +81,31 @@ public class FragmentCommunity extends Fragment {
         super.onViewCreated(view, savedInstanceState);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        initializeBoardItems();
-    }
-
     // 아이템 불러오기
     private void initializeBoardItems(){
+        BoardServiceApi service = RetrofitClient.getBoardServiceApi();
+        Call<List<BoardItem>> call = service.getBoardList();
 
+        call.enqueue(new Callback<List<BoardItem>>() {
+            @Override
+            public void onResponse(Call<List<BoardItem>> call, Response<List<BoardItem>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    boardItemList.clear();
+                    boardItemList.addAll(response.body());
+                    adapter.notifyDataSetChanged();
+                    swipeRefreshLayout.setRefreshing(false);
+                } else {
+                    Log.e(TAG, "Request Error :: " + response.errorBody());
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<BoardItem>> call, Throwable t) {
+                t.printStackTrace();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
     }
 
 //    @Override

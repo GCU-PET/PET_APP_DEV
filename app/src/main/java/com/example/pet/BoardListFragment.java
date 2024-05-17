@@ -123,7 +123,7 @@ public class BoardListFragment extends Fragment implements OnTaskCompleted{
 
         // 게시판 아이템 데이터를 초기화하고 어댑터에 연결
         boardItemList = new ArrayList<>();
-        adapter = new BoardListAdapter(boardItemList);
+        adapter = new BoardListAdapter(boardItemList, getContext());
         recyclerView.setAdapter(adapter);
 
         //게시글 등록 버튼

@@ -48,15 +48,14 @@ public class BoardRegister extends AppCompatActivity implements OnTaskCompleted{
     // 로그에 사용할 TAG 변수 선언
     final private String TAG = getClass().getSimpleName();
 
-    private File photoFile;
-
     // 사용할 컴포넌트 선언
     private ImageButton imageAddButton;
-    private ImageView addedImage;
+    //private ImageView addedImage;
 
     private EditText titleInput;
     private EditText contentInput;
     private Button registBtn;
+    private Uri imageUri;
 
     private static final int REQUEST_CODE = 1;
 
@@ -75,7 +74,7 @@ public class BoardRegister extends AppCompatActivity implements OnTaskCompleted{
 
         //컴포넌트 초기화
         imageAddButton = findViewById(R.id.board_add_image_button);
-        addedImage = findViewById(R.id.board_added_image);
+        //addedImage = findViewById(R.id.board_added_image);
 
         titleInput = findViewById(R.id.board_title_input);
         contentInput = findViewById(R.id.board_content_input);
@@ -92,67 +91,31 @@ public class BoardRegister extends AppCompatActivity implements OnTaskCompleted{
         registBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    uploadPost();
-//
-//                String title = titleInput.getText().toString();
-//                String content = contentInput.getText().toString();
-//
-//                RequestBody fileBody = RequestBody.create(MediaType.parse("image/*"), photoFile);
-//                MultipartBody.Part profile = MultipartBody.Part.createFormData("profile", photoFile.getName(), fileBody);
-//
-//                JSONObject jsonParam = new JSONObject();
-//                try {
-//                    jsonParam.put("title", title); //
-//                } catch (JSONException e) {
-//                    throw new RuntimeException(e);
-//                }
-//                try {
-//                    jsonParam.put("content",content); //
-//                } catch (JSONException e) {
-//                    throw new RuntimeException(e);
-//                }
-//                try {
-//                    jsonParam.put("profile",profile);
-//                } catch (JSONException e) {
-//                    throw new RuntimeException(e);
-//                }
-//
-//                // 파일이 이미 존재하는지 확인
-//                File file = new File(getFilesDir(), "token.txt");
-//                String token = "";
-//                // 파일 존재 여부 확인
-//                if (file.exists()) {
-//                    // 파일이 존재할 경우의 처리
-//                    try {
-//                        // 파일 읽기
-//                        BufferedReader reader = new BufferedReader(new FileReader(file));
-//                        StringBuilder stringBuilder = new StringBuilder();
-//                        String line;
-//
-//                        while ((line = reader.readLine()) != null) {
-//                            stringBuilder.append(line);
-//                        }
-//
-//                        reader.close();
-//                        // 읽은 내용 출력 또는 다른 처리 수행
-//                        String fileContent = stringBuilder.toString();
-//                        token = fileContent;
-//                        Log.i("File Content - Token: ", fileContent);
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//
-//                Gson gson = new Gson();
-//                List<String> listA = new ArrayList<String>();
-//                listA.add(String.valueOf(jsonParam));
-//                listA.add("POST");
-//                listA.add("api/board/post/image"); //
-//                listA.add(token);
-//
-//                String jsonWifiData = gson.toJson(listA); // converting wifiData to JSON format
-//
-//                new SendDataTask(BoardRegister.this).execute(jsonWifiData);
+                String userID = "userID"; // 사용자 ID
+                String title = titleInput.getText().toString();
+                String content = contentInput.getText().toString();
+                String date = "2024-05-00"; // 날짜 대체
+
+                if (imageUri != null){
+                    try {
+                        File imageFile = new File(getCacheDir(), "board_image.jpg");
+                        try (FileOutputStream out = new FileOutputStream(imageFile)) {
+                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+                        }
+                        // Retrofit을 사용하여 서버로 데이터 전송
+                        RetrofitClient.postBoard(userID, title, content, date, imageFile);
+
+                    } catch (IOException e){
+                        e.printStackTrace();;
+                        Toast.makeText(BoardRegister.this, "이미지 처리 오류", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    // Retrofit을 사용하여 이미지 없이 서버로 데이터 전송
+                    RetrofitClient.postBoard(userID, title, content, date, null);
+                }
+
+
             }
         });
     }
@@ -164,58 +127,18 @@ public class BoardRegister extends AppCompatActivity implements OnTaskCompleted{
         startActivityForResult(Intent.createChooser(intent, "Select Image"), REQUEST_CODE);
     }
 
-    private void uploadPost() {
-        String title = titleInput.getText().toString();
-        String content = contentInput.getText().toString();
-        String date = "9999-99-99";
-        Uri imageUri = getImageUri(addedImage);
-
-        if (imageUri != null) {
-
-
-            finish();
-
-        }else {
-
-
-            finish();
-        }
-    }
-
-    private Uri getImageUri(ImageView imageView) {
-        Drawable drawable = imageView.getDrawable();
-        Bitmap bitmap = null;
-
-        if (drawable instanceof BitmapDrawable) {
-            bitmap = ((BitmapDrawable) drawable).getBitmap();
-        }
-
-        // 이미지를 저장할 임시 파일 생성
-        File imageFile = new File(getCacheDir(), "temp_image.jpg");
-        try (OutputStream outputStream = Files.newOutputStream(imageFile.toPath())) {
-            assert bitmap != null;
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // FileProvider를 사용하여 콘텐츠 URI 생성
-        return FileProvider.getUriForFile(this, getPackageName() + ".fileprovider", imageFile);
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
             if (data != null) {
-                Uri imageUri = data.getData();
+                imageUri = data.getData();
                 if (imageUri != null) {
                     Bitmap bitmap;
                     try {
                         bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-                        addedImage.setImageBitmap(bitmap);
-                        //imageAddButton.setVisibility(View.GONE);
-                        addedImage.setVisibility(View.VISIBLE);
+                        imageAddButton.setImageBitmap(bitmap);
+                        imageAddButton.setVisibility(View.VISIBLE);
 
                     } catch (IOException e) {
                         e.printStackTrace();

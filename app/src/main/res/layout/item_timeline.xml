@@ -50,7 +50,8 @@
                 android:layout_height="100dp"
                 android:layout_margin="10dp"
                 app:srcCompat="@drawable/icon_camera"
-                app:tint="@color/Ivory"/>
+                app:tint="@color/Ivory"
+                android:scaleType="fitCenter"/>
 
 
         </LinearLayout>

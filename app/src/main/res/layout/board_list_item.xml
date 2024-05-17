@@ -70,5 +70,5 @@
         android:id="@+id/itemImageView"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:scaleType="fitCenter" />
+        android:scaleType="fitCenter"/>
 </LinearLayout>
