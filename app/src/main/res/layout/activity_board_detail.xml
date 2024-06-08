@@ -86,12 +86,11 @@
                 <ImageView
                     android:id="@+id/board_detail_image"
                     android:src="@drawable/red_rectangle"
-                    android:bakground="@color/Bittersweet"
+                    android:background="@color/Maize"
                     android:layout_width="180dp"
                     android:layout_height="180dp"
                     android:layout_margin="10dp"
-                    android:scaleType="center"
-                    android:layout_gravity="center_vertical"/>
+                    android:scaleType="center"/>
 
             </LinearLayout>
         </LinearLayout>

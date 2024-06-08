@@ -2,6 +2,7 @@ package com.example.pet;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -35,6 +36,8 @@ public class FragmentCommunity extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private ImageButton writeBtn;
 
+    private LinearLayoutManager linearLayoutManager;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -51,20 +54,23 @@ public class FragmentCommunity extends Fragment {
         boardItemList = new ArrayList<>();
         adapter = new BoardListAdapter(boardItemList, getContext());
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
+        linearLayoutManager = new LinearLayoutManager(requireContext());
+        //linearLayoutManager.setReverseLayout(true); //역순으로 설정
+        //linearLayoutManager.setStackFromEnd(false); // 역순으로 설정할 때 처음 위치를 가장 처음으로 설정ㅂ
+        recyclerView.setLayoutManager(linearLayoutManager);
 
         writeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), BoardRegister.class);
                 startActivity(intent);
+                initializeBoardItems();
             }
         });
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Log.e("SWIPE","새로고침!");
                 // 새로고침 작업 수행
                 initializeBoardItems();
             }
@@ -83,30 +89,40 @@ public class FragmentCommunity extends Fragment {
 
     // 아이템 불러오기
     private void initializeBoardItems(){
-        BoardServiceApi service = RetrofitClient.getBoardServiceApi();
-        Call<List<BoardItem>> call = service.getBoardList();
+        Log.i("init","init Board");
+        BoardServiceApi service = RetrofitClient.getBoardServiceApi(getContext());
+        Call<BoardResponse> call = service.getBoardList();
 
-        call.enqueue(new Callback<List<BoardItem>>() {
+        call.enqueue(new Callback<BoardResponse>() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
-            public void onResponse(Call<List<BoardItem>> call, Response<List<BoardItem>> response) {
+            public void onResponse(Call<BoardResponse> call, Response<BoardResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    boardItemList.clear();
-                    boardItemList.addAll(response.body());
-                    adapter.notifyDataSetChanged();
-                    swipeRefreshLayout.setRefreshing(false);
+                    BoardResponse boardResponse = response.body();
+                    if (boardResponse.isResult()) {
+                        boardItemList.clear();
+                        boardItemList.addAll(boardResponse.getResponse());
+                        adapter.notifyDataSetChanged();
+
+                        // 데이터를 불러온 후 첫 번째 요소가 화면에 보이도록 설정
+                        linearLayoutManager.scrollToPositionWithOffset(boardItemList.size() - 1, 0);
+                    } else {
+                        Log.e(TAG, "Response Error :: Result is false");
+                    }
                 } else {
                     Log.e(TAG, "Request Error :: " + response.errorBody());
-                    swipeRefreshLayout.setRefreshing(false);
                 }
+                swipeRefreshLayout.setRefreshing(false);
             }
 
             @Override
-            public void onFailure(Call<List<BoardItem>> call, Throwable t) {
+            public void onFailure(Call<BoardResponse> call, Throwable t) {
                 t.printStackTrace();
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
     }
+
 
 //    @Override
 //    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

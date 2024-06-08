@@ -57,6 +57,7 @@ public class LoginActivity extends AppCompatActivity implements OnTaskCompleted{
                 Log.e("token",token);
                 // txt 파일에 token 저장
                 saveTokenToFile(token);
+
                 // mainActivity 이동
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);

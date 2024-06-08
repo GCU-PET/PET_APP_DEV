@@ -53,9 +53,9 @@ public class UserInfoSettingActivity extends AppCompatActivity implements OnTask
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_info_setting);
+        setContentView(R.layout.fragment_user_info_setting);
 
-        submitBtn = findViewById(R.id.userInfo_submit);
+        //submitBtn = findViewById(R.id.);
 
         userID = findViewById(R.id.user_id);
         userPassword = findViewById(R.id.user_password);
@@ -63,65 +63,65 @@ public class UserInfoSettingActivity extends AppCompatActivity implements OnTask
         petName = findViewById(R.id.pet_name);
 //        petAge = findViewById(R.id.pet_age);
 
-        submitBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String user_ID = userID.getText().toString();
-                String user_password = userPassword.getText().toString();
-
-                String pet_name = petName.getText().toString();
-                //String pet_age = petAge.getText().toString();
-
-                JSONObject jsonParam = new JSONObject();
-                try {
-                    //jsonParam.put("userName", user_name);
-                    jsonParam.put("PW", user_password);
-                    jsonParam.put("petName", pet_name);
-                    //jsonParam.put("petAge", pet_age);
-
-                    // token 불러오기
-                    // 파일이 이미 존재하는지 확인
-                    File file = new File(getFilesDir(), "token.txt");
-                    String token = "";
-                    // 파일 존재 여부 확인
-                    if (file.exists()) {
-                        // 파일이 존재할 경우의 처리
-                        try {
-                            // 파일 읽기
-                            BufferedReader reader = new BufferedReader(new FileReader(file));
-                            StringBuilder stringBuilder = new StringBuilder();
-                            String line;
-
-                            while ((line = reader.readLine()) != null) {
-                                stringBuilder.append(line);
-                            }
-
-                            reader.close();
-                            // 읽은 내용 출력 또는 다른 처리 수행
-                            String fileContent = stringBuilder.toString();
-                            token = fileContent;
-                            Log.i("File Content - Token: ", fileContent);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    Gson gson = new Gson();
-                    List<String> listA = new ArrayList<String>();
-                    listA.add(String.valueOf(jsonParam));
-                    listA.add("POST");
-                    listA.add("api/user/update"); //
-                    listA.add(token);
-
-                    String jsonWifiData = gson.toJson(listA); // converting wifiData to JSON format
-
-                    new SendDataTask(UserInfoSettingActivity.this).execute(jsonWifiData);
-
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
+//        submitBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String user_ID = userID.getText().toString();
+//                String user_password = userPassword.getText().toString();
+//
+//                String pet_name = petName.getText().toString();
+//                //String pet_age = petAge.getText().toString();
+//
+//                JSONObject jsonParam = new JSONObject();
+//                try {
+//                    //jsonParam.put("userName", user_name);
+//                    jsonParam.put("PW", user_password);
+//                    jsonParam.put("petName", pet_name);
+//                    //jsonParam.put("petAge", pet_age);
+//
+//                    // token 불러오기
+//                    // 파일이 이미 존재하는지 확인
+//                    File file = new File(getFilesDir(), "token.txt");
+//                    String token = "";
+//                    // 파일 존재 여부 확인
+//                    if (file.exists()) {
+//                        // 파일이 존재할 경우의 처리
+//                        try {
+//                            // 파일 읽기
+//                            BufferedReader reader = new BufferedReader(new FileReader(file));
+//                            StringBuilder stringBuilder = new StringBuilder();
+//                            String line;
+//
+//                            while ((line = reader.readLine()) != null) {
+//                                stringBuilder.append(line);
+//                            }
+//
+//                            reader.close();
+//                            // 읽은 내용 출력 또는 다른 처리 수행
+//                            String fileContent = stringBuilder.toString();
+//                            token = fileContent;
+//                            Log.i("File Content - Token: ", fileContent);
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    Gson gson = new Gson();
+//                    List<String> listA = new ArrayList<String>();
+//                    listA.add(String.valueOf(jsonParam));
+//                    listA.add("POST");
+//                    listA.add("api/user/update"); //
+//                    listA.add(token);
+//
+//                    String jsonWifiData = gson.toJson(listA); // converting wifiData to JSON format
+//
+//                    new SendDataTask(UserInfoSettingActivity.this).execute(jsonWifiData);
+//
+//                } catch (JSONException e) {
+//                    throw new RuntimeException(e);
+//                }
+//            }
+//        });
 
 
         petProfile = findViewById(R.id.info_setting_profile);

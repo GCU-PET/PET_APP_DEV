@@ -2,6 +2,7 @@ package com.example.pet;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
 public class BoardListAdapter extends RecyclerView.Adapter<BoardListAdapter.BoardItemViewHolder> {
@@ -39,30 +41,34 @@ public class BoardListAdapter extends RecyclerView.Adapter<BoardListAdapter.Boar
         BoardItem item = boardItemList.get(position);
 
         holder.titleTextView.setText(item.getTitle());
-        holder.contentTextView.setText(item.getContent());
-        holder.IDTextView.setText(item.getID());
+        holder.IDTextView.setText(item.getWriter());
         holder.DateTextView.setText(item.getDate());
 
         // 이미지 로드
-        if (item.getImageUrl() != null && !item.getImageUrl().isEmpty()) {
+        if (item.getImage() != null && !item.getImage().isEmpty()) {
             Glide.with(holder.itemView.getContext())
-                    .load(item.getImageUrl())
+                    .load(item.getImage())
                     .into(holder.imageView);
+            Log.e("image", "이미지로드 성공");
         } else {
-            //holder.imageView.setImageResource(R.drawable.icon_camera); // 기본 이미지 설정
+            Log.e("image", "이미지 URL이 null이거나 비어 있습니다.");
+            // 이미지 URL이 비어있거나 null일 때
+            Glide.with(holder.itemView.getContext())
+                    .clear(holder.imageView); // 이미지 뷰를 비웁니다.
         }
 
         // 아이템 클릭 리스너 설정
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(context, BoardDetail.class);
+                intent.putExtra("_id", item.get_id());
                 intent.putExtra("title", item.getTitle());
                 intent.putExtra("content",item.getContent());
                 intent.putExtra("date",item.getDate());
-                intent.putExtra("userID",item.getID());
-                intent.putExtra("imageUrl",item.getImageUrl());
-
+                intent.putExtra("writer",item.getWriter());
+                intent.putExtra("imageUrl",item.getImage());
                 context.startActivity(intent);
             }
         });
@@ -74,13 +80,12 @@ public class BoardListAdapter extends RecyclerView.Adapter<BoardListAdapter.Boar
     }
 
     public static class BoardItemViewHolder extends RecyclerView.ViewHolder {
-        public TextView titleTextView, contentTextView, IDTextView, DateTextView;
+        public TextView titleTextView, IDTextView, DateTextView;
         public ImageView imageView;
 
         public BoardItemViewHolder(View view) {
             super(view);
             titleTextView = view.findViewById(R.id.itemTitleTextView);
-            //contentTextView = view.findViewById(R.id.itemContentTextView);
             imageView = view.findViewById(R.id.itemImageView);
 
             IDTextView = view.findViewById(R.id.itemUserIDTextView);

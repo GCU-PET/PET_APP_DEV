@@ -1,6 +1,12 @@
 package com.example.pet;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,12 +25,17 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class FragmentHome extends Fragment {
+
+    private CircleImageView profile;
 
     private TabLayout timeline_tab;
     private ViewPager2 timeline_slider;
@@ -36,6 +47,14 @@ public class FragmentHome extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        profile = view.findViewById(R.id.home_profile);
+
+        String imagePath = getImagePath();
+        if (imagePath != null) {
+            Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+            profile.setImageBitmap(bitmap);
+        }
 
         //현재 날짜 얻기
         Calendar calendar = Calendar.getInstance();
@@ -78,6 +97,22 @@ public class FragmentHome extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        String imagePath = getImagePath();
+        if (imagePath != null) {
+            Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+            profile.setImageBitmap(bitmap);
+        }
+    }
+
+    private String getImagePath() {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("AppPrefs", Context.MODE_PRIVATE);
+        return sharedPreferences.getString("profileImagePath", null);  // 기본값으로 null 설정
     }
 
     // 선택한 탭 아이콘의 색을 바꾸는 클래스

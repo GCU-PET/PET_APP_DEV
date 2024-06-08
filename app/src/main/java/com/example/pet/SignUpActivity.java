@@ -40,7 +40,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SignUpActivity extends AppCompatActivity implements OnTaskCompleted{
 
-    private CircleImageView profile;
+    //private CircleImageView profile;
+    private EditText userName;
     private EditText petName;
     private EditText userID;
     private EditText password;
@@ -70,6 +71,8 @@ public class SignUpActivity extends AppCompatActivity implements OnTaskCompleted
                     isUserIdValid = false;
                 }
                 resultForCheckingDup = false;
+
+                checkFieldsForValidValues();
             } catch (JSONException e) {
                 Log.e("JSON Parsing Error", "Error parsing JSON result", e);
             }
@@ -109,7 +112,8 @@ public class SignUpActivity extends AppCompatActivity implements OnTaskCompleted
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        profile = findViewById(R.id.signup_profile);
+        //profile = findViewById(R.id.signup_profile);
+        userName = findViewById(R.id.signup_username);
         petName = findViewById(R.id.signup_petname);
         userID = findViewById(R.id.signup_id);
         password = findViewById(R.id.signup_password);
@@ -120,15 +124,15 @@ public class SignUpActivity extends AppCompatActivity implements OnTaskCompleted
         signupBtn.setEnabled(false);
         dupliBtn.setEnabled(false);
 
-        profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/*");
-                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
-                startActivityForResult(Intent.createChooser(intent, "Select Image"), REQUEST_CODE);
-            }
-        });
+//        profile.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+//                intent.setType("image/*");
+//                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
+//                startActivityForResult(Intent.createChooser(intent, "Select Image"), REQUEST_CODE);
+//            }
+//        });
 
         TextWatcher textWatcher = new TextWatcher() {
             @Override
@@ -142,6 +146,7 @@ public class SignUpActivity extends AppCompatActivity implements OnTaskCompleted
             }
         };
 
+        userName.addTextChangedListener(textWatcher);
         petName.addTextChangedListener(textWatcher);
         password.addTextChangedListener(textWatcher);
 
@@ -165,14 +170,14 @@ public class SignUpActivity extends AppCompatActivity implements OnTaskCompleted
                 resultForCheckingDup = true;
                 isUserIdValid = false;
                 signupBtn.setEnabled(false);
+
+                checkFieldsForValidValues();
             }
         });
 
         dupliBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                isUserIdValid = true;
 
                 JSONObject jsonParam = new JSONObject();
                 try {
@@ -190,8 +195,6 @@ public class SignUpActivity extends AppCompatActivity implements OnTaskCompleted
                 String jsonWifiData = gson.toJson(listA); // converting wifiData to JSON format
 
                 new SendDataTask(SignUpActivity.this).execute(jsonWifiData);
-
-                checkFieldsForValidValues();
             }
         });
 
@@ -200,11 +203,16 @@ public class SignUpActivity extends AppCompatActivity implements OnTaskCompleted
             public void onClick(View v) {
                 String id = userID.getText().toString();
                 String pw = password.getText().toString();
+                String username = userName.getText().toString();
+                String pet_name = petName.getText().toString();
 
                 JSONObject jsonParam = new JSONObject();
                 try {
                     jsonParam.put("ID",id);
                     jsonParam.put("PW",pw);
+                    jsonParam.put("userName", username);
+                    jsonParam.put("petName", pet_name);
+
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
@@ -225,11 +233,12 @@ public class SignUpActivity extends AppCompatActivity implements OnTaskCompleted
     }
 
     private void checkFieldsForValidValues() {
+        boolean isUserNameFilled = !userName.getText().toString().trim().isEmpty();
         boolean isPetNameFilled = !petName.getText().toString().trim().isEmpty();
         //boolean isUserIdFilled = !userID.getText().toString().trim().isEmpty();
         boolean isPasswordFilled = !password.getText().toString().trim().isEmpty();
 
-        signupBtn.setEnabled(isPetNameFilled && isUserIdValid && isPasswordFilled);
+        signupBtn.setEnabled(isUserNameFilled && isPetNameFilled && isUserIdValid && isPasswordFilled);
 
 //        petNameError.setVisibility(isPetNameFilled ? View.GONE : View.VISIBLE);
 //        userIdError.setVisibility(isUserIdFilled ? View.GONE : View.VISIBLE);
@@ -279,26 +288,26 @@ public class SignUpActivity extends AppCompatActivity implements OnTaskCompleted
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
-            if (data != null) {
-                Uri imageUri = data.getData();
-                if (imageUri != null) {
-                    Bitmap bitmap;
-                    try {
-                        bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-                        profile.setImageBitmap(bitmap);
-                        //imageAddButton.setVisibility(View.GONE);
-                        //profile.setVisibility(View.VISIBLE);
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+//            if (data != null) {
+//                Uri imageUri = data.getData();
+//                if (imageUri != null) {
+//                    Bitmap bitmap;
+//                    try {
+//                        bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+//                        profile.setImageBitmap(bitmap);
+//                        //imageAddButton.setVisibility(View.GONE);
+//                        //profile.setVisibility(View.VISIBLE);
+//
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        }
+//    }
 
 }

@@ -13,23 +13,41 @@
         android:orientation="vertical"
         android:padding="25dp">
 
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="10dp"-->
+<!--            android:fontFamily="@font/hanuman_regular"-->
+<!--            android:text="Profile Photo"-->
+<!--            android:textSize="25sp" />-->
+
+<!--        <de.hdodenhof.circleimageview.CircleImageView-->
+<!--            android:id="@+id/signup_profile"-->
+<!--            android:layout_width="204dp"-->
+<!--            android:layout_height="204dp"-->
+
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginBottom="20dp"-->
+<!--            android:src="@drawable/red_ellipse"-->
+<!--            android:background="@color/Ivory"/>-->
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginHorizontal="10dp"
             android:fontFamily="@font/hanuman_regular"
-            android:text="Profile Photo"
+            android:text="Your Name Is?"
             android:textSize="25sp" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/signup_profile"
-            android:layout_width="204dp"
-            android:layout_height="204dp"
-
-            android:layout_marginTop="10dp"
+        <EditText
+            android:id="@+id/signup_username"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
             android:layout_marginBottom="20dp"
-            android:src="@drawable/red_ellipse"
-            android:background="@color/Ivory"/>
+            android:background="@drawable/yellow_rectangle"
+            android:autofillHints="Pet Name"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -43,7 +61,7 @@
             android:id="@+id/signup_petname"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="30dp"
             android:background="@drawable/yellow_rectangle"
             android:autofillHints="Pet Name"/>
 

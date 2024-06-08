@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.vipulasri.timelineview.TimelineView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class TimeLineViewAdapter extends RecyclerView.Adapter<TimeLineViewAdapter.TimelineViewHolder> {
@@ -43,6 +45,8 @@ public class TimeLineViewAdapter extends RecyclerView.Adapter<TimeLineViewAdapte
         Context context = holder.itemView.getContext();
 
         holder.date.setText(timeLineModel.getHour());
+        holder.status.setText(timeLineModel.getStatus());
+
         //holder.timeline.setMarker(ContextCompat.getDrawable(context, R.drawable.icon_edit));
     }
 
@@ -58,14 +62,17 @@ public class TimeLineViewAdapter extends RecyclerView.Adapter<TimeLineViewAdapte
 
     public class TimelineViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView date;
-        public ImageView image;
+        private TextView status;
+        private TextView date;
+        //public ImageView image;
         public TimelineView timeline;
 
         public TimelineViewHolder(@NonNull View itemView) {
             super(itemView);
             this.date = (TextView) itemView.findViewById(R.id.timeline_date);
-            this.image = (ImageView) itemView.findViewById(R.id.timeline_image);
+            this.status = (TextView) itemView.findViewById(R.id.timeline_status);
+
+            //this.image = (ImageView) itemView.findViewById(R.id.timeline_image);
             this.timeline = (TimelineView) itemView.findViewById(R.id.timeline);
 
             // TimelineView 속성 설정

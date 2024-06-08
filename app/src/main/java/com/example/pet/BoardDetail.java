@@ -3,12 +3,16 @@ package com.example.pet;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 public class BoardDetail extends AppCompatActivity {
 
@@ -34,7 +38,7 @@ public class BoardDetail extends AppCompatActivity {
         String titleText = getIntent().getStringExtra("title");
         String contentText = getIntent().getStringExtra("content");
         String dateText = getIntent().getStringExtra("date");
-        String userIDText = getIntent().getStringExtra("userID");
+        String userIDText = getIntent().getStringExtra("writer");
         String imageUrlText = getIntent().getStringExtra("imageUrl");
 
         //수신한 데이터를 UI에 설정
@@ -46,9 +50,9 @@ public class BoardDetail extends AppCompatActivity {
         //이미지 로드
         if (imageUrlText != null && !imageUrlText.isEmpty()) {
             Glide.with(this)
-                    .load(imageUrlText)
-                    .placeholder(R.drawable.icon_camera)
+                    .load(imageUrlText) //.placeholder(R.drawable.icon_camera)
                     .into(image);
+
         }
 
 

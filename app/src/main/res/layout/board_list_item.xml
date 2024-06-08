@@ -37,17 +37,17 @@
                 android:layout_height="wrap_content"
                 android:text="Date"
                 android:textSize="15dp"
-                android:layout_margin="5dp"
+                android:layout_marginHorizontal="5dp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/hanuman_regular"/>
 
             <TextView
                 android:id="@+id/itemUserIDTextView"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="User Id"
                 android:textSize="15dp"
-                android:layout_margin="5dp"
+                android:layout_marginHorizontal="5dp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/hanuman_regular"/>
 

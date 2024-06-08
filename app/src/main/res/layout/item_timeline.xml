@@ -41,17 +41,27 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/timeline_date"
                 android:textSize="15sp"
-                android:fontFamily="@font/hanuman_bold"
+                android:fontFamily="@font/hanuman_regular"
+                android:layout_margin="5dp"
                 tools:text="Hour 13:00"/>
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/timeline_image"
+            <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_margin="10dp"
-                app:srcCompat="@drawable/icon_camera"
-                app:tint="@color/Ivory"
-                android:scaleType="fitCenter"/>
+                android:layout_height="wrap_content"
+                android:id="@+id/timeline_status"
+                android:textSize="15sp"
+                android:fontFamily="@font/hanuman_regular"
+                android:layout_margin="5dp"
+                tools:text="Status"/>
+
+<!--            <androidx.appcompat.widget.AppCompatImageView-->
+<!--                android:id="@+id/timeline_image"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="100dp"-->
+<!--                android:layout_margin="10dp"-->
+<!--                app:srcCompat="@drawable/icon_camera"-->
+<!--                app:tint="@color/Ivory"-->
+<!--                android:scaleType="fitCenter"/>-->
 
 
         </LinearLayout>

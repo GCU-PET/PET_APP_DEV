@@ -1,7 +1,12 @@
 package com.example.pet;
 
+import android.content.Context;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.google.gson.JsonObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,12 +26,14 @@ import retrofit2.http.Multipart;
 
 public class RetrofitClient {
     private static Retrofit retrofit;
-    private static final String BASE_URL = "https://wicked-paws-make.loca.lt//";
+    private static final String BASE_URL = "https://www.feople-eeho.com/";
 
+    // header에 token이 없을 때
     public static Retrofit getRetrofitInstance() {
         if (retrofit == null) {
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
             logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
             OkHttpClient client = new OkHttpClient.Builder()
                     .addInterceptor(logging)
                     .build();
@@ -40,147 +47,91 @@ public class RetrofitClient {
         return retrofit;
     }
 
-    // 회원가입 정보 입력
-    public static void signUpUser(String userId, String password, String nickname, File profileImage) {
-        // 로깅 인터셉터 추가
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(logging)
-                .build();
+    // header에 token이 있을 때
+    public static Retrofit getRetrofitInstance(Context context) {
+        if (retrofit == null) {
+            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-        // Retrofit 설정
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+            OkHttpClient client = new OkHttpClient.Builder()
+                    .addInterceptor(logging)
+                    .addInterceptor(new TokenInterceptor(context))
+                    .build();
 
-        // 서비스 생성
-        UserServiceApi service = retrofit.create(UserServiceApi.class);
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .client(client)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+        }
+        return retrofit;
+    }
+
+    public static UserServiceApi getUserServiceApi(Context context) {
+        return getRetrofitInstance(context).create(UserServiceApi.class);
+    }
+
+    public static void postUpdateUserInfo(Context context, String PW, String userName, String petName) {
+        UserServiceApi service = getRetrofitInstance(context).create(UserServiceApi.class);
+
+//        RequestBody pwPart = RequestBody.create(MediaType.parse("text/plain"), PW);
+//        RequestBody userNamePart = RequestBody.create(MediaType.parse("text/plain"), userName);
+//        RequestBody petNamePart = RequestBody.create(MediaType.parse("text/plain"), petName);
 
         // 텍스트 데이터 준비
-        RequestBody userIdPart = RequestBody.create(MediaType.parse("text/plain"), userId);
-        RequestBody passwordPart = RequestBody.create(MediaType.parse("text/plain"), password);
-        RequestBody nicknamePart = RequestBody.create(MediaType.parse("text/plain"), nickname);
+        JsonObject json = new JsonObject();
+        json.addProperty("PW", PW);
+        json.addProperty("userName", userName);
+        json.addProperty("petName", petName);
 
-        // 이미지 파일 준비
-        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpeg"), profileImage);
-        MultipartBody.Part imagePart = MultipartBody.Part.createFormData("profile_image", profileImage.getName(), requestFile);
-
-        // 요청 전송
-        Call<ResponseBody> call = service.signupUser(userIdPart, passwordPart, nicknamePart, imagePart);
+        RequestBody body = RequestBody.create(MediaType.parse("application/json"), json.toString());
+        Call<ResponseBody> call = service.updateUser(body);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
-                    try {
-                        System.out.println("Server Response: " + response.body().string());
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
+                    // 성공적으로 업데이트되었습니다.
+                    System.out.println("User updated successfully.");
                 } else {
-                    try {
-                        System.out.println("Request Error :: " + response.errorBody().string());
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
+                    // 오류 처리
+                    System.out.println("Error: " + response.errorBody().toString());
                 }
             }
-
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                // 네트워크 오류 등
                 t.printStackTrace();
             }
         });
-    }
 
-    // 회원정보 업데이트
-    public static void updateUser(String userId, String nickname, File profileImage) {
-        // Retrofit 인스턴스 및 서비스 생성은 registerUser 메서드와 동일
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(logging)
-                .build();
-
-        // Retrofit 설정
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        // 서비스 생성
-        UserServiceApi service = retrofit.create(UserServiceApi.class);
-
-        // 텍스트 데이터와 이미지 파일 준비
-        RequestBody nicknamePart = RequestBody.create(MediaType.parse("text/plain"), nickname);
-        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpeg"), profileImage);
-        MultipartBody.Part imagePart = MultipartBody.Part.createFormData("profile_image", profileImage.getName(), requestFile);
-
-        // 업데이트 요청 전송
-        Call<ResponseBody> call = service.updateUser(userId, nicknamePart, imagePart);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                if (response.isSuccessful()) {
-                    try {
-                        System.out.println("Update Success: " + response.body().string());
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                } else {
-                    try {
-                        System.out.println("Update Error: " + response.errorBody().string());
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                System.out.println("Update Failure");
-                t.printStackTrace();
-            }
-        });
     }
 
     // 게시판 글 추가
-    public static void postBoard(String userID, String title, String content,String date,@Nullable File boardImage) {
-        // Retrofit 인스턴스 및 서비스 생성은 registerUser 메서드와 동일
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(logging)
-                .build();
-
-        // Retrofit 설정
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+    public static void postBoard(Context context, String title, String content, @Nullable File boardImage) {
 
         // 서비스 생성
-        BoardServiceApi service = retrofit.create(BoardServiceApi.class);
+        BoardServiceApi service = getRetrofitInstance(context).create(BoardServiceApi.class);
+        Call<ResponseBody> call;
 
-        // 텍스트 데이터 준비
-        RequestBody userIdPart = RequestBody.create(MediaType.parse("text/plain"), userID);
-        RequestBody titlePart = RequestBody.create(MediaType.parse("text/plain"), title);
-        RequestBody contentPart = RequestBody.create(MediaType.parse("text/plain"), content);
-        RequestBody datePart = RequestBody.create(MediaType.parse("text/plain"),date);
-
-        //이미지 준비
-        MultipartBody.Part imagePart = null;
         if(boardImage != null) {
-            RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpeg"), boardImage);
-            imagePart = MultipartBody.Part.createFormData("board_image", boardImage.getName(), requestFile);
-        }
+            // 텍스트 데이터 준비
+            RequestBody titlePart = RequestBody.create(MediaType.parse("multipart/form-data"), title);
+            RequestBody contentPart = RequestBody.create(MediaType.parse("multipart/form-data"), content);
 
-        // 요청 전송
-        Call<ResponseBody> call = service.postBoardData(userIdPart, titlePart, contentPart, datePart, imagePart);
+            //이미지 준비
+            RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), boardImage);
+            MultipartBody.Part imagePart = MultipartBody.Part.createFormData("profile", boardImage.getName(), requestFile);
+
+            call = service.postBoardDataImage(titlePart, contentPart, imagePart);
+        } else {
+            // 텍스트 데이터 준비
+            JsonObject json = new JsonObject();
+            json.addProperty("title", title);
+            json.addProperty("content", content);
+
+            RequestBody body = RequestBody.create(MediaType.parse("application/json"), json.toString());
+            call = service.postBoardData(body);
+        }
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -208,8 +159,28 @@ public class RetrofitClient {
 
     }
 
-    public static BoardServiceApi getBoardServiceApi() {
-        return getRetrofitInstance().create(BoardServiceApi.class);
+    public static BoardServiceApi getBoardServiceApi(Context context) {
+        return getRetrofitInstance(context).create(BoardServiceApi.class);
+    }
+
+    public static BoardServiceApi getTimelineLogList(Context context) {
+        if (retrofit == null) {
+            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+            OkHttpClient client = new OkHttpClient.Builder()
+                    .addInterceptor(logging)
+                    .addInterceptor(new TokenInterceptor(context))
+                    .build();
+
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .client(client)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+        }
+
+        return retrofit.create(BoardServiceApi.class);
     }
 
 }

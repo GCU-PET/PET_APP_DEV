@@ -89,12 +89,13 @@ public class BoardRegister extends AppCompatActivity implements OnTaskCompleted{
 
         //버튼 이벤트 추가
         registBtn.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                String userID = "userID"; // 사용자 ID
+                //String userID = "userID"; // 사용자 ID
+                //String date = "2024-00-00"; // 날짜 대체
                 String title = titleInput.getText().toString();
                 String content = contentInput.getText().toString();
-                String date = "2024-05-00"; // 날짜 대체
 
                 if (imageUri != null){
                     try {
@@ -104,7 +105,8 @@ public class BoardRegister extends AppCompatActivity implements OnTaskCompleted{
                             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
                         }
                         // Retrofit을 사용하여 서버로 데이터 전송
-                        RetrofitClient.postBoard(userID, title, content, date, imageFile);
+                        RetrofitClient.postBoard(getApplicationContext(), title, content, imageFile);
+                        finish();
 
                     } catch (IOException e){
                         e.printStackTrace();;
@@ -112,10 +114,9 @@ public class BoardRegister extends AppCompatActivity implements OnTaskCompleted{
                     }
                 } else {
                     // Retrofit을 사용하여 이미지 없이 서버로 데이터 전송
-                    RetrofitClient.postBoard(userID, title, content, date, null);
+                    RetrofitClient.postBoard(getApplicationContext(), title, content,null);
+                    finish();
                 }
-
-
             }
         });
     }

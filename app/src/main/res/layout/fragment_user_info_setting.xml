@@ -54,6 +54,26 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="User Name"
+                android:textAppearance="@style/info_text"
+                android:fontFamily="@font/hanuman_regular"
+                android:layout_margin="10dp"
+                />
+
+            <EditText
+                android:id="@+id/user_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="User Name"
+                android:background="@drawable/yellow_rectangle"
+                android:textAppearance="@style/info_input"
+                android:fontFamily="@font/hanuman_regular"
+                android:paddingStart="14dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Pet Name"
                 android:textAppearance="@style/info_text"
                 android:fontFamily="@font/hanuman_regular"
@@ -148,16 +168,16 @@
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/userInfo_submit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_background"
-            android:text="Save Change"
-            android:textSize="15sp"
-            android:fontFamily="@font/hanuman_regular"
-            android:layout_gravity="center"
-            android:layout_margin="20dp"/>
+<!--        <Button-->
+<!--            android:id="@+id/userInfo_submit"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/button_background"-->
+<!--            android:text="Save Change"-->
+<!--            android:textSize="15sp"-->
+<!--            android:fontFamily="@font/hanuman_regular"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_margin="20dp"/>-->
 
     </LinearLayout>
 

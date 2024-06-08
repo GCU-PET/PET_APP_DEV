@@ -44,7 +44,7 @@ public class SendDataTask extends AsyncTask<String, Void, String> {
             System.out.println("Method: " + method);
             System.out.println("Endpoint: " + endpoint);
 
-            String urlString = "https://wicked-paws-make.loca.lt/" + endpoint;
+            String urlString = "https://www.feople-eeho.com/" + endpoint;
             URL url = new URL(urlString);
             System.out.println(url);
             System.out.println(method);
@@ -94,7 +94,8 @@ public class SendDataTask extends AsyncTask<String, Void, String> {
             System.out.println("Response Code: " + responseCode);
 
             // 응답 데이터 읽기
-            if (responseCode == HttpURLConnection.HTTP_OK) {
+            //if (responseCode == HttpURLConnection.HTTP_OK) {
+            if (responseCode == 201) {
                 BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 String inputLine;
                 StringBuilder response = new StringBuilder();
@@ -113,7 +114,6 @@ public class SendDataTask extends AsyncTask<String, Void, String> {
                 // 응답데이터가 오류일 경우 에러스트림을 읽어 해당 내용을 로깅해서 반환
                 // onPostExecute에서 결과 확인하고 사용자에게 피드백
                 System.out.println("API 요청 실패");
-
                 //오류 처리
                 BufferedReader errorReader = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
                 String errorInputLine;
