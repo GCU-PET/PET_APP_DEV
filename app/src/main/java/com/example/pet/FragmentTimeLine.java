@@ -40,6 +40,8 @@ public class FragmentTimeLine extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_time_line, container, false);
 
+        Log.i("Timeline DATE",date);
+
         RecyclerView recyclerView = view.findViewById(R.id.timeline_recyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
